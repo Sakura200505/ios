@@ -1,16 +1,27 @@
 using UnityEngine;
 
-public class StrollItemData : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+[CreateAssetMenu(menuName = "Game/Item")]
+
+public class StrollItemData : ScriptableObject
+{
+    //itemの画像
+    public Sprite icon;
+    //itemの名前
+    public string itemName;
+    //itemのタイプ
+    public ItemType itemType;
+
+    [TextArea] public string description;
+
+    public int foodValue;
+    public int cleanlinessValue;
+
+    public enum ItemType
     {
-        
+        Food,
+        Shower,
+        Clothes,
+        Other
     }
 }
