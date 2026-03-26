@@ -1,12 +1,23 @@
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class Inventory : MonoBehaviour
-//{
-//    public List<ItemData> items = new List<ItemData>();
+public class Inventory : MonoBehaviour
+{
+    public static Inventory Instance;
 
-//    public void AddItem(ItemData item)
-//    {
-//        items.Add(item);
-//    }
-//}
+    public List<StrollItemData> items = new List<StrollItemData>();
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    public void AddItem(StrollItemData item)
+    {
+        items.Add(item);
+
+        //UIçXêV
+        ItemUIManager.Instance.Refresh(items);
+    }
+}
