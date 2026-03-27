@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 public class ItemManager : MonoBehaviour
 {
-    public static ItemManager instance;
+    public static ItemManager Instance;
 
     public List<StrollItemData> itemList;
 
     private void Awake()
     {
-        if (instance == null) instance = this;
+        if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 

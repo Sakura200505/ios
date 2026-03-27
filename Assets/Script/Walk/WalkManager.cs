@@ -10,7 +10,7 @@
 
 //    //クールタイム管理
 //    public DateTime lastWalkTime;
-//    public float walkCooldownSeconds = 3600f;
+//    public float walkCooldownSeconds = 3600f;  //散歩のクールタイム
 
 //    private void Awake()
 //    {
@@ -44,7 +44,7 @@
 
 //        //散歩が終わった後の通知
 //        NotificationManager.Instance.ScheduleNotification
-//            ("散歩終了！", "ペットが帰ってきたよ！" duration);
+//            ("散歩終了！", "ペットが帰ってきたよ！", duration);
 //    }
 
 //    //散歩が可能かの判定
@@ -62,7 +62,7 @@
 //        Debug.Log("散歩終了");
 
 //        //アイテムを取得
-//        ItemManager.instance.GetRandamItem();
+//        ItemManager.Instance.GetRandomItem();
 //    }
 
 //    //残り時間のクールタイム
@@ -75,11 +75,12 @@
 //    //セーブ機能
 //    public void Save()
 //    {
-//        SaveManager.instance.Save
+//        SaveManager.Instance.Save
 //            (
 //                 StatusManager.Instance.hunger,
 //                 isWalking,
-//                 endTime
+//                 endTime,
+//                 lastWalkTime
 //            );
 //    }
 
@@ -91,7 +92,7 @@
 
 //        isWalking = data.IsWalking;
 
-//        if(isWalking)
+//        if (isWalking)
 //        {
 //            endTime = DateTime.Parse(data.walkEndTime);
 

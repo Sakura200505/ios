@@ -8,23 +8,27 @@
 //{
 //    public float hunger;
 //    public string lastSaveTime;
+//    public bool isWalking;
+//    public string walkEndTime;
+//    public string lastWalkTime;
 //}
 
 //public class SaveManager : MonoBehaviour
 //{
-//    public static SaveManager instance;
+//    public static SaveManager Instance;
 
 //    private string key = "SAVE_DATA";
 
 //    private void Awake()
 //    {
-//        if (instance == null) instance = this;
+//        if (Instance == null) Instance = this;
 //        else Destroy(gameObject);
 //    }
 
-//    public void Save(float hunger, bool isWalking, DateTime walkEndTime)
+//    //保存処理
+//    public void Save(float hunger, bool isWalking, DateTime walkEndTime, DateTime lastWalkTime)
 //    {
-//        SaveData data =new SaveData();
+//        SaveDate data = new SaveDate();
 
 
 //        data.hunger = hunger;
@@ -32,17 +36,35 @@
 
 //        data.isWalking = isWalking;
 //        data.walkEndTime = walkEndTime.ToString();
+//        data.lastWalkTime = lastWalkTime.ToString();
 
 //        string json = JsonUtility.ToJson(data);
 //        PlayerPrefs.SetString(key, json);
 //        PlayerPrefs.Save();
+
+//        Debug.Log("セーブ完了");
 //    }
 
-//    public SaveData Load()
+//    //読み込み処理
+//    public SaveDate Load()
 //    {
 //        if (!PlayerPrefs.HasKey(key)) return null;
+//        {
+//            Debug.Log("セーブデータなし");
+//            return null;
+//        }
 
 //        string json = PlayerPrefs.GetString(key);
-//        return JsonUtility.FromJson<SaveData>(json);
+//        SaveDate data = JsonUtility.FromJson<SaveDate>(json);
+
+//        Debug.Log("ロード完了");
+//        return data;
+//    }
+
+//    //データ削除（デバッグ用）
+//    public void Delete()
+//    {
+//        PlayerPrefs.DeleteKey(key);
+//        Debug.Log("セーブ削除");
 //    }
 //}
