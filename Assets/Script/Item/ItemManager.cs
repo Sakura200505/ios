@@ -14,7 +14,7 @@ public class ItemManager : MonoBehaviour
     }
 
     //ランダムにアイテムを取得する
-    public void GetRandamItem()
+    public void GetRandomItem()
     {
         int index = Random.Range(0, itemList.Count);
         var item = itemList[index];
