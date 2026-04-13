@@ -7,6 +7,10 @@ public class StatusManager : MonoBehaviour
     [Header("ステータス")]
     public float maxHunger = 100f;
     public float hunger = 100f;
+    [Header("レベル")]
+    public int level = 1;
+    public int exp;
+    public int maxExp = 100;
 
     private void Awake()
     {
@@ -43,5 +47,23 @@ public class StatusManager : MonoBehaviour
     public float GetHungerNormalized()
     {
         return hunger / maxHunger;
+    }
+
+    public void AddExp(int amount)
+    {
+        exp += amount;
+        Debug.Log("経験値：" + exp);
+
+        if (exp >= maxExp)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        exp = 0;
+        Debug.Log("レベルアップ！　Lv." + level);
     }
 }
