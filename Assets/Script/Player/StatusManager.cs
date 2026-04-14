@@ -4,9 +4,14 @@ public class StatusManager : MonoBehaviour
 {
     public static StatusManager Instance;
 
-    [Header("ステータス")]
+    [Header("満腹度")]
     public float maxHunger = 100f;
     public float hunger = 100f;
+
+    //[Header("清潔度")]
+    //public float
+
+
     [Header("レベル")]
     public int level = 1;
     public int exp;
@@ -24,6 +29,9 @@ public class StatusManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+    /*ここからご飯の処理------------------------------------------*/
 
     //満腹度を減らす
     public void DecreaseHunger(float amount)
@@ -48,6 +56,12 @@ public class StatusManager : MonoBehaviour
     {
         return hunger / maxHunger;
     }
+
+    /*ここまでがご飯の処理-----------------------------------------*/
+
+
+    /*ここからシャワーの処理----------------------------------------*/
+
 
     public void AddExp(int amount)
     {
