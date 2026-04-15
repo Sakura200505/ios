@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 365989535}
   - component: {fileID: 365989534}
   m_Layer: 5
-  m_Name: poop
+  m_Name: Stress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 426163989}
   - component: {fileID: 426163988}
   - component: {fileID: 426163987}
+  - component: {fileID: 426163990}
   m_Layer: 5
   m_Name: showerButton
   m_TagString: Untagged
@@ -871,15 +872,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339180588}
-        m_TargetAssemblyTypeName: GaugeController, Assembly-CSharp
-        m_MethodName: Heal
-        m_Mode: 4
+      - m_Target: {fileID: 426163990}
+        m_TargetAssemblyTypeName: ShowerSystem, Assembly-CSharp
+        m_MethodName: Shower
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
-          m_FloatArgument: 2
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -891,6 +892,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426163985}
   m_CullTransparentMesh: 1
+--- !u!114 &426163990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426163985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7124ec99f0c2cf344adf15b45ab89f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowerSystem
+  cleanAmount: 20
+  expAmount: 2
 --- !u!1 &430149876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,10 +3091,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1203492860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcb73a6adbf94614e9ea80106fb52a5c, type: 3}
+  m_Script: {fileID: 11500000, guid: bd770d9f05964c14d89595113459e56d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GaugeController
-  foregroundGauge: {fileID: 1363050501}
+  m_EditorClassIdentifier: Assembly-CSharp::showerGauge
+  cleanFill: {fileID: 1363050501}
 --- !u!1 &1222656108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3726,6 +3741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7124ec99f0c2cf344adf15b45ab89f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowerSystem
+  cleanAmount: 20
+  expAmount: 2
 --- !u!1 &1339180586
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,6 +4052,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusManager
   maxHunger: 100
   hunger: 100
+  maxClean: 100
+  clean: 50
+  maxStress: 100
+  stress: 50
   level: 1
   exp: 0
   maxExp: 100
@@ -4526,8 +4547,9 @@ GameObject:
   - component: {fileID: 1827481038}
   - component: {fileID: 1827481037}
   - component: {fileID: 1827481036}
+  - component: {fileID: 1827481039}
   m_Layer: 5
-  m_Name: poopButton
+  m_Name: StressButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4627,15 +4649,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339180588}
-        m_TargetAssemblyTypeName: GaugeController, Assembly-CSharp
-        m_MethodName: Heal
-        m_Mode: 4
+      - m_Target: {fileID: 1827481039}
+        m_TargetAssemblyTypeName: PetSystem, Assembly-CSharp
+        m_MethodName: Pet
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
-          m_FloatArgument: 2
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -4647,6 +4669,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827481034}
   m_CullTransparentMesh: 1
+--- !u!114 &1827481039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827481034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e422332dad74443a665ee298b4222c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PetSystem
+  stressDownAmount: 15
+  expAmount: 3
 --- !u!1 &1908839770
 GameObject:
   m_ObjectHideFlags: 0
@@ -5063,7 +5099,7 @@ GameObject:
   - component: {fileID: 2081298472}
   - component: {fileID: 2081298473}
   m_Layer: 5
-  m_Name: Poop
+  m_Name: Stress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5100,10 +5136,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2081298471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcb73a6adbf94614e9ea80106fb52a5c, type: 3}
+  m_Script: {fileID: 11500000, guid: c8dddaef2b6155e418446714c6743dc0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GaugeController
-  foregroundGauge: {fileID: 365989534}
+  m_EditorClassIdentifier: Assembly-CSharp::StressGauge
+  stressFill: {fileID: 365989534}
 --- !u!1 &2088224031
 GameObject:
   m_ObjectHideFlags: 0
@@ -5154,7 +5190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -1,19 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class showerGauge : MonoBehaviour
 {
-    [Header("ê¥åâìx")]
-    public float maxClean = 100f;
-    public float clean = 100f;
+    [SerializeField] private Image cleanFill;
 
-    public void IncreaseClean(float amount)
+    private void Update()
     {
-        clean += amount;
-        clean = Mathf.Clamp(clean, 0, maxClean);
-    }
-
-    public float GetCleanNormalized()
-    {
-        return clean / maxClean;
+        cleanFill.fillAmount = StatusManager.Instance.GetCleanNormalized();
     }
 }

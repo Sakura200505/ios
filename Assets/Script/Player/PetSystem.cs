@@ -10,7 +10,7 @@ public class PetSystem : MonoBehaviour
 
     public void Pet()
     {
-     //   StatusManager.Instance.DecreaseStress(stressDownAmount);
+        StatusManager.Instance.DecreaseStress(stressDownAmount);
         StatusManager.Instance.AddExp(expAmount);
 
         Debug.Log("•‚Å‚½I");
