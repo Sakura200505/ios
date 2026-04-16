@@ -80,7 +80,7 @@ public class StatusManager : MonoBehaviour
     public void DecreaseClean(float amount)
     {
         clean -= amount;
-        clean = -Mathf.Clamp(clean, 0, maxExp);
+        clean = Mathf.Clamp(clean, 0, maxExp);
 
         Debug.Log("清潔度：" + clean);
     }
@@ -123,7 +123,17 @@ public class StatusManager : MonoBehaviour
 
     /*ここまでが不満度の処理-----------------------------------------*/
 
+    private void Update()
+    {
+        //満腹ゲージが減っていく（空腹になる）
+        DecreaseHunger(Time.deltaTime * 1f);
 
+        //清潔度が減っていく（汚くなる）
+        DecreaseClean(Time.deltaTime * 0.5f);
+
+        //不満度が増える
+        IncreaseStress(Time.deltaTime * 0.8f);
+    }
 
     /*ここから経験値の処理-------------------------------------------*/
 
