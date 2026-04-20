@@ -13,5 +13,7 @@ public class InventoryButton : MonoBehaviour
         {
             ItemUIManager.Instance.Refresh(Inventory.Instance.items);
         }
+
+        Debug.Log("ƒCƒ“ƒxƒ“ƒgƒŠbutton‚ð‰Ÿ‚µ‚½‚æ");
     }
 }

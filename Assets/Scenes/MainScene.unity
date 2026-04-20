@@ -2653,7 +2653,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 520686798}
+      - m_Target: {fileID: 1100496502}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
@@ -2712,11 +2712,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1100496502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d489fb767f725dc4c9fdc546e3c4ac30, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e7986948a94d0f45a04ede2abd94885, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  items:
-  - {fileID: 11400000, guid: e953466c894987842a22e7dae2c91b8b, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryButton
+  InventoryPanel: {fileID: 520686798}
 --- !u!1 &1117558093
 GameObject:
   m_ObjectHideFlags: 0
