@@ -3,7 +3,7 @@ using System;
 using UnityEditor.Overlays;
 using System.Data;
 
-[SerializeField]
+[System.Serializable]
 public class SaveDate
 {
     public float hunger;
@@ -48,7 +48,7 @@ public class SaveManager : MonoBehaviour
     //読み込み処理
     public SaveDate Load()
     {
-        if (!PlayerPrefs.HasKey(key)) return null;
+        if (!PlayerPrefs.HasKey(key))
         {
             Debug.Log("セーブデータなし");
             return null;

@@ -34,6 +34,16 @@ public class StatusManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        var data = SaveManager.Instance.Load();
+
+        if(data != null)
+        {
+            hunger = data.hunger;
+        }
+    }
+
 
     /*‚±‚±‚©‚ç‚²”Ñ‚Ìˆ—------------------------------------------*/
 
