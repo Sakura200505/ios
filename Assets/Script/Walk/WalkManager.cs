@@ -34,7 +34,11 @@ public class WalkManager : MonoBehaviour
     //散歩開始（ボタンから呼ぶ）
     public void StartWalk()
     {
+        Debug.Log("散歩ボタンを押した");
+
         if (!CanWalk()) return;
+
+        Debug.Log("散歩開始");
 
         isWalking = true;
         lastWalkTime = DateTime.Now;
