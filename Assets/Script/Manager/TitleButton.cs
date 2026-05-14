@@ -1,14 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class TitleButton : MonoBehaviour
 {
-    void Update()
+   public void StartGame()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            SceneManager.LoadScene("MainScene");
-        }
+        SceneManager.LoadScene("MainScene");
     }
 }
