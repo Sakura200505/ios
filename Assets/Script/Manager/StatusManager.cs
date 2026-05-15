@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StatusManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class StatusManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -34,6 +36,8 @@ public class StatusManager : MonoBehaviour
         }
     }
 
+
+    //ゲームをstartする時に全てのステータスをロードする為の処理
     private void Start()
     {
         var data = SaveManager.Instance.Load();
@@ -41,20 +45,15 @@ public class StatusManager : MonoBehaviour
         if(data != null)
         {
             hunger = data.hunger;
+            clean = data.clean;
+            stress = data.stress;
+            level = data.level;
+            exp = data.exp;
         }
     }
 
 
     /*ここからご飯の処理------------------------------------------*/
-
-    //満腹度を減らす
-    public void DecreaseHunger(float amount)
-    {
-        hunger -= amount;
-        hunger = Mathf.Clamp(hunger, 0, maxHunger);
-
-        Debug.Log("満腹度：" + hunger);
-    }
 
     //満腹度を回復
     public void IncreaseHunger(float amount)
@@ -62,7 +61,18 @@ public class StatusManager : MonoBehaviour
         hunger += amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
-        Debug.Log("満腹度：" + hunger);
+        SaveManager.Instance.Save();
+
+      //  Debug.Log("満腹度：" + hunger);
+    }
+
+    //満腹度を減らす
+    public void DecreaseHunger(float amount)
+    {
+        hunger -= amount;
+        hunger = Mathf.Clamp(hunger, 0, maxHunger);
+
+        //  Debug.Log("満腹度：" + hunger);
     }
 
     //UI用処理
@@ -83,16 +93,18 @@ public class StatusManager : MonoBehaviour
         clean += amount;
         clean = Mathf.Clamp(clean, 0,maxClean);
 
-        Debug.Log("清潔度：" + clean);
+        SaveManager.Instance.Save();
+
+       // Debug.Log("清潔度：" + clean);
     }
 
     //清潔度を減らす（時間経過によって汚くなる表現を演出）
     public void DecreaseClean(float amount)
     {
         clean -= amount;
-        clean = Mathf.Clamp(clean, 0, maxExp);
+        clean = Mathf.Clamp(clean, 0, maxClean);
 
-        Debug.Log("清潔度：" + clean);
+       // Debug.Log("清潔度：" + clean);
     }
 
     //UI用処理
@@ -113,7 +125,9 @@ public class StatusManager : MonoBehaviour
         stress += amount;
         stress = Mathf.Clamp(stress, 0, maxStress);
 
-        Debug.Log("不満度：" + stress);
+        SaveManager.Instance.Save();
+
+        //Debug.Log("不満度：" + stress);
     }
 
     //撫でることによって不満度が減っていく
@@ -122,7 +136,7 @@ public class StatusManager : MonoBehaviour
         stress -= amount;
         stress = Mathf.Clamp(stress, 0, maxStress);
 
-        Debug.Log("不満度：" + stress);
+       // Debug.Log("不満度：" + stress);
     }
 
     //UI用処理
@@ -157,14 +171,19 @@ public class StatusManager : MonoBehaviour
         {
             LevelUp();
         }
+
+        SaveManager.Instance.Save();
     }
 
     //ご飯をあげたりシャワーをすることによって獲得できる経験値でレベルをあげていく
     private void LevelUp()
     {
+        exp -= maxExp;
         level++;
-        exp = 0;
-        Debug.Log("レベルアップ！　Lv." + level);
+
+        SaveManager.Instance.Save();
+
+       // Debug.Log("レベルアップ！　Lv." + level);
     }
 
     /*ここまでが経験値の処理----------------------------------------*/

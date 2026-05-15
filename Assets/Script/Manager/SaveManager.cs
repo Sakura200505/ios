@@ -4,14 +4,26 @@ using UnityEditor.Overlays;
 using System.Data;
 
 [System.Serializable]
-public class SaveDate
+public class SaveData
 {
+    //ステータス
     public float hunger;
-    public string lastSaveTime;
+    public float clean;
+    public float stress;
+
+    //レベル
+    public int level;
+    public int exp;
+
+    //散歩
     public bool IsWalking;
     public string walkEndTime;
     public string lastWalkTime;
+
+    //セーブ時間
+    public string lastSaveTime;
 }
+
 
 public class SaveManager : MonoBehaviour
 {
@@ -21,32 +33,50 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     //保存処理
-    public void Save(float hunger, bool isWalking, DateTime walkEndTime, DateTime lastWalkTime)
+    public void Save()
     {
-        SaveDate data = new SaveDate();
+        SaveData data = new SaveData();
 
+        //ステータス
+        data.hunger = StatusManager.Instance.hunger;
+        data.clean = StatusManager.Instance.clean;
+        data.stress = StatusManager.Instance.stress;
 
-        data.hunger = hunger;
+        data.level = StatusManager.Instance.level;
+        data.exp = StatusManager.Instance.exp;
+        
+
+        //散歩
+        data.IsWalking = WalkManager.Instance.isWalking;
+        data.walkEndTime = WalkManager.Instance.endTime.ToString();
+        data.lastWalkTime = WalkManager.Instance.lastWalkTime.ToString();
+
         data.lastSaveTime = DateTime.Now.ToString();
 
-        data.IsWalking = isWalking;
-        data.walkEndTime = walkEndTime.ToString();
-        data.lastWalkTime = lastWalkTime.ToString();
-
+        //Json化
         string json = JsonUtility.ToJson(data);
+
+        //保存
         PlayerPrefs.SetString(key, json);
         PlayerPrefs.Save();
 
-        Debug.Log("セーブ完了");
+       // Debug.Log("セーブ完了");
     }
 
     //読み込み処理
-    public SaveDate Load()
+    public SaveData Load()
     {
         if (!PlayerPrefs.HasKey(key))
         {
@@ -54,8 +84,9 @@ public class SaveManager : MonoBehaviour
             return null;
         }
 
+        //読み込み
         string json = PlayerPrefs.GetString(key);
-        SaveDate data = JsonUtility.FromJson<SaveDate>(json);
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         Debug.Log("ロード完了");
         return data;
@@ -64,7 +95,20 @@ public class SaveManager : MonoBehaviour
     //データ削除（デバッグ用）
     public void Delete()
     {
+        Debug.Log("Delete実行");
+
         PlayerPrefs.DeleteKey(key);
+        PlayerPrefs.Save();
+
+        //
+        StatusManager.Instance.hunger = 100;
+        StatusManager.Instance.clean = 100;
+        StatusManager.Instance.stress = 100;
+
+        //
+        StatusManager.Instance.level = 1;
+        StatusManager.Instance.exp = 0;
+
         Debug.Log("セーブ削除");
     }
 }

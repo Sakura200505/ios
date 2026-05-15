@@ -10,6 +10,13 @@ public class ShowerSystem : MonoBehaviour
 
     public void Shower()
     {
+        //清潔度がmaxならボタンを押しても反応しないようにする
+        if(StatusManager.Instance.clean >= StatusManager.Instance.maxClean)
+        {
+            Debug.Log("もうきれいな状態だよ！");
+            return;
+        }
+
         StatusManager.Instance.IncreaseClean(cleanAmount);
         StatusManager.Instance.AddExp(expAmount);
 

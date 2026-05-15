@@ -79,13 +79,7 @@ public class WalkManager : MonoBehaviour
     //セーブ機能
     public void Save()
     {
-        SaveManager.Instance.Save
-            (
-                 StatusManager.Instance.hunger,
-                 isWalking,
-                 endTime,
-                 lastWalkTime
-            );
+        SaveManager.Instance.Save();
     }
 
     //ロード機能
