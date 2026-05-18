@@ -56,14 +56,22 @@ public class StatusManager : MonoBehaviour
     /*ここからご飯の処理------------------------------------------*/
 
     //満腹度を回復
-    public void IncreaseHunger(float amount)
+    public bool IncreaseHunger(float amount)
     {
+        //MAXなら回復しない
+        if (hunger >= maxHunger)
+        {
+            return false;
+        }
+
         hunger += amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
         SaveManager.Instance.Save();
 
-      //  Debug.Log("満腹度：" + hunger);
+        return true;
+
+        //Debug.Log("満腹度：" + hunger);
     }
 
     //満腹度を減らす

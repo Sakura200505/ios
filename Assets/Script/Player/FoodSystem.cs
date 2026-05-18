@@ -10,15 +10,14 @@ public class FoodSystem : MonoBehaviour
 
     public void food()
     {
+        bool success = StatusManager.Instance.IncreaseHunger(hungerAmount);
+
         //maxならボタンを押しても反応しないように
-        if(StatusManager.Instance.hunger >= StatusManager.Instance.maxHunger)
+        if(!success)
         {
             Debug.Log("満腹のため食べられないよ！");
             return;
         }
-
-        //満腹度を回復する
-        StatusManager.Instance.IncreaseHunger(hungerAmount);
 
         //経験値を追加する
         StatusManager.Instance.AddExp(expAmount);
