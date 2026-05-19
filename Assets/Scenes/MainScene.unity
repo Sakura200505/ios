@@ -4007,6 +4007,7 @@ GameObject:
   - component: {fileID: 1418012387}
   - component: {fileID: 1418012389}
   - component: {fileID: 1418012388}
+  - component: {fileID: 1418012390}
   m_Layer: 5
   m_Name: Dog
   m_TagString: Untagged
@@ -4071,6 +4072,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418012386}
   m_CullTransparentMesh: 1
+--- !u!114 &1418012390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418012386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17578a286b69dbe44905810e69118207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DogUIManager
+  dogImage: {fileID: 1418012388}
+  normalSprite: {fileID: 21300000, guid: 715b92b1ccab742408ad851ec0decf46, type: 3}
+  hungrySprite: {fileID: 21300000, guid: 16e51071752df0049a9739138c25a961, type: 3}
+  dirtySprite: {fileID: 0}
+  stressSprite: {fileID: 21300000, guid: 3ff8f747328bed04eb3a0d7e8a7a7c29, type: 3}
 --- !u!1 &1437062176
 GameObject:
   m_ObjectHideFlags: 0
