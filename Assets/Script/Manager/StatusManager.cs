@@ -7,11 +7,11 @@ public class StatusManager : MonoBehaviour
 
     [Header("満腹度")]
     public float maxHunger = 100f;
-    public float hunger = 100f;
+    public float hunger = 50f;
 
     [Header("清潔度")]
     public float maxClean = 100f;
-    public float clean = 50f;
+    public float clean = 20f;
 
     [Header("不満度")]
     public float maxStress = 100f;

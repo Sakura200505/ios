@@ -39,7 +39,7 @@ public class DogUIManager : MonoBehaviour
             dogImage.sprite = dirtySprite;
         }
 
-        else if ( stress <= 70)
+        else if ( stress >= 30)
         {
             dogImage.sprite= stressSprite;  
         }
