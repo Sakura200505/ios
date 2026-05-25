@@ -6,7 +6,7 @@ public class StatusManager : MonoBehaviour
     public static StatusManager Instance;
 
     [Header("–• “x")]
-    public float maxHunger = 100f;
+    public float maxHunger = 100f;   
     public float hunger = 50f;
 
     [Header("´Œ‰“x")]

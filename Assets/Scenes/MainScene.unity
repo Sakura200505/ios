@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 234413242}
   - component: {fileID: 234413241}
   - component: {fileID: 234413240}
-  - component: {fileID: 234413239}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -452,18 +451,6 @@ RectTransform:
   m_AnchoredPosition: {x: 55.495483, y: 1842}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &234413239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 234413237}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b249ae88782352d4c856dd23c36916ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneChangeManager
 --- !u!114 &234413240
 MonoBehaviour:
   m_ObjectHideFlags: 0
