@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PetSystem : MonoBehaviour
+public class StressSystem : MonoBehaviour
 {
     [Header("ペットの不満度")]
     [SerializeField] private float stressDownAmount = 15f;
