@@ -6,7 +6,7 @@ public class FoodSystem : MonoBehaviour
     [SerializeField] private float hungerAmount = 10f;
 
     [Header("åoå±íl")]
-    [SerializeField] private int expAmount = 2;
+    [SerializeField] private int expAmount = 4;
 
     public void food()
     {

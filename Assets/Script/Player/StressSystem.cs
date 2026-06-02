@@ -6,7 +6,7 @@ public class StressSystem : MonoBehaviour
     [SerializeField] private float stressDownAmount = 15f;
 
     [Header("ïèÇ≈ÇΩÇ±Ç∆Ç…ÇÊÇÈåoå±íl")]
-    [SerializeField] private int expAmount = 3;
+    [SerializeField] private int expAmount = 2;
 
     public void Pet()
     {

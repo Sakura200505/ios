@@ -4018,8 +4018,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000026703, y: -314}
-  m_SizeDelta: {x: 1397.6, y: 2322.6494}
+  m_AnchoredPosition: {x: 2, y: -200}
+  m_SizeDelta: {x: 1250, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1418012388
 MonoBehaviour:
@@ -4043,7 +4043,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 7e1c2449f1c9ec6419a5c9942b943569, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4072,10 +4072,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DogUIManager
   dogImage: {fileID: 1418012388}
-  normalSprite: {fileID: 21300000, guid: 715b92b1ccab742408ad851ec0decf46, type: 3}
-  hungrySprite: {fileID: 21300000, guid: 16e51071752df0049a9739138c25a961, type: 3}
+  normalSprite: {fileID: 21300000, guid: 7e1c2449f1c9ec6419a5c9942b943569, type: 3}
+  hungrySprite: {fileID: 21300000, guid: 88a86aef3af3aeb4c9ac18e262ac2a6d, type: 3}
   dirtySprite: {fileID: 0}
-  stressSprite: {fileID: 21300000, guid: 3ff8f747328bed04eb3a0d7e8a7a7c29, type: 3}
+  stressSprite: {fileID: 21300000, guid: d2d01947fdfa89641889ac27699ee706, type: 3}
 --- !u!1 &1437062176
 GameObject:
   m_ObjectHideFlags: 0

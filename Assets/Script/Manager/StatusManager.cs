@@ -18,7 +18,7 @@ public class StatusManager : MonoBehaviour
     public float stress = 50f;
 
     [Header("ƒŒƒxƒ‹")]
-    public int level = 1;
+    public int level = 0;
     public int exp;
     public int maxExp = 100;
 
