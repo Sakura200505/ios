@@ -194,5 +194,23 @@ public class StatusManager : MonoBehaviour
        // Debug.Log("レベルアップ！　Lv." + level);
     }
 
+    //ワンちゃんの成長段階を取得する
+    public int GetDogStage()
+    {
+        if (level >= 41)
+            return 4;      //犬の画像
+
+        if (level >= 31)
+            return 3;      //毛玉段階4
+
+        if (level >= 21)
+            return 2;      //毛玉段階3
+
+        if (level >= 11)   
+            return 1;      //毛玉段階2
+
+        return 0;    //毛玉
+    }
+
     /*ここまでが経験値の処理----------------------------------------*/
 }

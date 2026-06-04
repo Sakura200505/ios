@@ -4072,10 +4072,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DogUIManager
   dogImage: {fileID: 1418012388}
-  normalSprite: {fileID: 21300000, guid: 7e1c2449f1c9ec6419a5c9942b943569, type: 3}
-  hungrySprite: {fileID: 21300000, guid: 88a86aef3af3aeb4c9ac18e262ac2a6d, type: 3}
-  dirtySprite: {fileID: 0}
-  stressSprite: {fileID: 21300000, guid: d2d01947fdfa89641889ac27699ee706, type: 3}
+  dogStages:
+  - normal: {fileID: 21300000, guid: 7e1c2449f1c9ec6419a5c9942b943569, type: 3}
+    hungry: {fileID: 21300000, guid: d2d01947fdfa89641889ac27699ee706, type: 3}
+    dirty: {fileID: 0}
+    stress: {fileID: 21300000, guid: 88a86aef3af3aeb4c9ac18e262ac2a6d, type: 3}
+  - normal: {fileID: 21300000, guid: 10d9eb981c73c5f448f742084c1c3aa5, type: 3}
+    hungry: {fileID: 21300000, guid: 5c2a631cb58f9ac409725c9a089dd2ed, type: 3}
+    dirty: {fileID: 0}
+    stress: {fileID: 21300000, guid: 6cfd87c4548d80947b401b60475145d7, type: 3}
+  - normal: {fileID: 21300000, guid: 64727e39a81d8b440a5cd08b9e6bd474, type: 3}
+    hungry: {fileID: 21300000, guid: f4633fa83ed5c864ebec7b02d1311a62, type: 3}
+    dirty: {fileID: 0}
+    stress: {fileID: 21300000, guid: 1f43a6d3c3992c9489df872938a20cf4, type: 3}
+  - normal: {fileID: 21300000, guid: cb7dc7219280b7c47bb88ce56e655777, type: 3}
+    hungry: {fileID: 21300000, guid: 0ad9cedfd7bd48a478dffb9bc36b84dd, type: 3}
+    dirty: {fileID: 0}
+    stress: {fileID: 21300000, guid: 812842c7a44993f43be96bb70536cdef, type: 3}
+  - normal: {fileID: 21300000, guid: 715b92b1ccab742408ad851ec0decf46, type: 3}
+    hungry: {fileID: 21300000, guid: 3ff8f747328bed04eb3a0d7e8a7a7c29, type: 3}
+    dirty: {fileID: 0}
+    stress: {fileID: 21300000, guid: 16e51071752df0049a9739138c25a961, type: 3}
 --- !u!1 &1437062176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,9 +4157,9 @@ MonoBehaviour:
   maxHunger: 100
   hunger: 100
   maxClean: 100
-  clean: 50
+  clean: 30
   maxStress: 100
-  stress: 50
+  stress: 20
   level: 1
   exp: 0
   maxExp: 100
