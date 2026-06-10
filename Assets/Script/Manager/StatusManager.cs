@@ -139,10 +139,19 @@ public class StatusManager : MonoBehaviour
     }
 
     //撫でることによって不満度が減っていく
-    public void DecreaseStress(float amount)
+    public bool DecreaseStress(float amount)
     {
+        if(stress <= 0)
+        {
+            return false;
+        }
+
         stress -= amount;
         stress = Mathf.Clamp(stress, 0, maxStress);
+
+        SaveManager.Instance.Save();
+
+        return true;
 
        // Debug.Log("不満度：" + stress);
     }
