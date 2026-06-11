@@ -141,8 +141,10 @@ public class StatusManager : MonoBehaviour
     //•‚Å‚é‚±‚Æ‚É‚æ‚Á‚Ä•s–“x‚ªŒ¸‚Á‚Ä‚¢‚­
     public bool DecreaseStress(float amount)
     {
-        if(stress <= 0)
+        if (stress < 1) 
         {
+            stress = 0;
+
             return false;
         }
 
