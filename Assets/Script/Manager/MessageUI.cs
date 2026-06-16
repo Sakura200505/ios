@@ -1,16 +1,38 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class MessageUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static MessageUI Instance;
+
+    [SerializeField] private TextMeshProUGUI messageText;
+
+    private Coroutine currentRoutine;
+
+    private void Awake()
     {
-        
+        Instance = this;
+        messageText.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowMessage(string message)
     {
-        
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+        }
+
+        currentRoutine = StartCoroutine(MessageRoutine(message));
+    }
+
+    private IEnumerator MessageRoutine(string message)
+    {
+        messageText.text = message;
+        messageText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        messageText.gameObject.SetActive(false);
     }
 }
