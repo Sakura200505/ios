@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -49,9 +50,34 @@ public class StatusManager : MonoBehaviour
             stress = data.stress;
             level = data.level;
             exp = data.exp;
+
+            ApplyOfflineProgress(data);
         }
     }
 
+    private void ApplyOfflineProgress(SaveData data)
+    {
+        if (string.IsNullOrEmpty(data.lastSaveTime))
+        {
+            return;
+        }
+
+        DateTime lastSave = DateTime.Parse(data.lastSaveTime);
+
+        TimeSpan span = DateTime.Now - lastSave;
+
+        float hours = (float)span.TotalHours;
+
+        hunger -= hours * 5f;
+        clean -= hours * 3f;
+        stress += hours * 2f;
+
+        hunger = Mathf.Clamp(hunger, 0, maxHunger);
+        clean = Mathf.Clamp(clean, 0, maxClean);
+        stress = Mathf.Clamp(stress, 0, maxStress);
+
+        Debug.Log($"オフライン経過時間：{hours:F1}時間");
+    }
 
     /*ここからご飯の処理------------------------------------------*/
 
