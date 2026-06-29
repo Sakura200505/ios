@@ -37,6 +37,12 @@ public class StatusManager : MonoBehaviour
         }
     }
 
+    public enum PetType
+    {
+        Dog,Cat,Rabit
+    }
+
+    public PetType selectedPet;
 
     //ゲームをstartする時に全てのステータスをロードする為の処理
     private void Start()
@@ -68,7 +74,7 @@ public class StatusManager : MonoBehaviour
 
         float hours = (float)span.TotalHours;
 
-        hunger -= hours * 5f;
+        hunger -= hours * 1000f;
         clean -= hours * 3f;
         stress += hours * 2f;
 
