@@ -8,10 +8,6 @@ public class WalkManager : MonoBehaviour
     public bool isWalking = false;
     public DateTime endTime;
 
-    //クールタイム管理
-    public DateTime lastWalkTime;
-    public float walkCooldownSeconds = 3600f;  //散歩のクールタイム
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -36,26 +32,54 @@ public class WalkManager : MonoBehaviour
     {
         Debug.Log("散歩ボタンを押した");
 
-        if (!CanWalk()) return;
+        // 散歩できるかチェック
+        if (!CanWalk())
+        {
+            if (isWalking)
+            {
+                Debug.Log("現在散歩中です！");
+            }
+            else
+            {
+                Debug.Log("今日はもう散歩できません！");
+            }
+
+            return;
+        }
+
+        // デイリーの散歩回数を追加
+        DailyManager.Instance.AddWalk();
 
         Debug.Log("散歩開始");
 
         isWalking = true;
-        lastWalkTime = DateTime.Now;
 
-        int duration = 10; //散歩の時間指定１０秒（何時間か掛けるようにするか検討）
+        int duration = 10; // テスト用（後で30分などに変更）
         endTime = DateTime.Now.AddSeconds(duration);
 
-        //散歩が終わった後の通知
-        NotificationManager.Instance.ScheduleNotification
-            ("散歩終了！", "ペットが帰ってきたよ！", duration);
+        // 散歩開始状態を保存
+        SaveManager.Instance.Save();
+
+        // 散歩終了通知
+        NotificationManager.Instance.ScheduleNotification(
+            "散歩終了！",
+            "ペットが帰ってきたよ！",
+            duration
+        );
+    }
+
+    public float GetRemainingTime()
+    {
+        if (!isWalking)
+            return 0f;
+
+        return Mathf.Max(0f, (float)(endTime - DateTime.Now).TotalSeconds);
     }
 
     //散歩が可能かの判定
     public bool CanWalk()
     {
-        TimeSpan diff = DateTime.Now - lastWalkTime;
-        return diff.TotalSeconds >= walkCooldownSeconds && !isWalking;
+        return !isWalking && DailyManager.Instance.CanWalk();
     }
 
     //散歩終了の判定
@@ -67,13 +91,9 @@ public class WalkManager : MonoBehaviour
 
         //アイテムを取得
         ItemManager.Instance.GetRandomItem();
-    }
 
-    //残り時間のクールタイム
-    public float GetRemainingCooldown()
-    {
-        float remain = walkCooldownSeconds - (float)(DateTime.Now - lastWalkTime).TotalSeconds;
-        return Mathf.Max(0, remain);
+        //散歩終了を保存
+        SaveManager.Instance.Save();
     }
 
     //セーブ機能

@@ -27,4 +27,12 @@ public class Inventory : MonoBehaviour
         //UI更新
         ItemUIManager.Instance.Refresh(items);
     }
+
+    public void RemoveItem(StrollItemData item) 
+    {
+        items.Remove(item);
+
+        //UI更新
+        ItemUIManager.Instance.Refresh(items);
+    }
 }

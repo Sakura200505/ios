@@ -12,6 +12,8 @@ public class StrollItemData : ScriptableObject
     //item‚Ìƒ^ƒCƒv
     public ItemType itemType;
 
+    public int expValue;
+
     [TextArea] public string description;
 
     public int foodValue;

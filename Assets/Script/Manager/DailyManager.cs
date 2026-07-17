@@ -3,22 +3,25 @@ using System;
 
 public class DailyManager : MonoBehaviour
 {
-    public static DailyManager instance;
+    public static DailyManager Instance;
 
     [Header("デイリーミッション")]
     public bool loginCompleted;
     public bool foodCompleted;
     public bool showerCompleted;
     public bool stressCompleted;
+
+    [Header("散歩")]
     public int walkCount;
+    private const int maxWalkCount = 2;
 
     private string lastDate;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -33,7 +36,7 @@ public class DailyManager : MonoBehaviour
         CompleteLogin();
     }
 
-    //この処理はいつなのかを確認する
+    // 日付を確認
     void CheckDate()
     {
         string today = DateTime.Now.ToString("yyyyMMdd");
@@ -42,26 +45,30 @@ public class DailyManager : MonoBehaviour
         if (lastDate != today)
         {
             ResetDaily();
+
             PlayerPrefs.SetString("LastDailyDate", today);
             PlayerPrefs.Save();
         }
     }
 
-    //この処理はミッションを達成できていないかを確認する
+    // デイリーミッションをリセット
     void ResetDaily()
     {
         loginCompleted = false;
         foodCompleted = false;
         showerCompleted = false;
         stressCompleted = false;
+
         walkCount = 0;
     }
 
+    /*=========================
+        ミッション達成
+    =========================*/
 
-    //ここからはミッションを達成した時の処理を書く
     void CompleteLogin()
     {
-        loginCompleted= true;
+        loginCompleted = true;
     }
 
     public void CompleteFood()
@@ -88,11 +95,32 @@ public class DailyManager : MonoBehaviour
         Debug.Log("ふれあいミッション達成！");
     }
 
-    public void AddWalk()
+    /*=========================
+          散歩関連
+    =========================*/
+
+    // 散歩できるか
+    public bool CanWalk()
     {
-        if (walkCount >= 2) return;
+        return walkCount < maxWalkCount;
+    }
+
+    // 散歩回数を追加
+    public bool AddWalk()
+    {
+        if (!CanWalk())
+            return false;
 
         walkCount++;
-        Debug.Log($"散歩回数 : {walkCount}/2");
+
+        Debug.Log($"散歩回数：{walkCount}/{maxWalkCount}");
+
+        return true;
+    }
+
+    // 残り散歩回数
+    public int GetRemainingWalk()
+    {
+        return maxWalkCount - walkCount;
     }
 }

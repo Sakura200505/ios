@@ -2,18 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using TMPro;
 
 public class ItemUIManager : MonoBehaviour
 {
     public static ItemUIManager Instance;
+    private StrollItemData currentItem;
 
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform slotParent;
 
     [Header("è⁄ç◊UI")]
     [SerializeField] private Image datailIcon;
-    [SerializeField] private Text detailName;
-    [SerializeField] private Text detailDescription;
+    [SerializeField] private TMP_Text detailName;
+    [SerializeField] private TMP_Text detailDescription;
+    [SerializeField] private GameObject detailPanel;
 
     private void Awake()
     {
@@ -41,8 +44,22 @@ public class ItemUIManager : MonoBehaviour
 
     public void ShowItemInfo(StrollItemData item)
     {
+        currentItem = item;
+
+        detailPanel.SetActive(true);
+
         datailIcon.sprite = item.icon;
         detailName.text = item.itemName;
         detailDescription.text = item.description;
+    }
+
+    public void UseSelectedItem()
+    {
+        if (currentItem == null)
+            return;
+
+        ItemManager.Instance.UseItem(currentItem);
+
+        detailPanel.SetActive(false);
     }
 }

@@ -1,0 +1,30 @@
+using TMPro;
+using UnityEngine;
+
+public class WalkMenuUI : MonoBehaviour
+{
+    [SerializeField] private GameObject walkMenuPanel;
+    [SerializeField] private TMP_Text remainingText;
+    [SerializeField] private TMP_Text timeText;
+
+    public void OpenMenu()
+    {
+        walkMenuPanel.SetActive(true);
+
+        // Ç∆ÇËÇ†Ç¶Ç∏å≈íËï\é¶
+        remainingText.text = "Ç†Ç∆2âÒ";
+
+        timeText.text = "éUï‡éûä‘ÅFñÒ30ï™";
+    }
+
+    public void CloseMenu()
+    {
+        walkMenuPanel.SetActive(false);
+    }
+
+    public void StartWalk()
+    {
+        WalkManager.Instance.StartWalk();
+        CloseMenu();
+    }
+}

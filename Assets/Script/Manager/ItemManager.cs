@@ -23,4 +23,36 @@ public class ItemManager : MonoBehaviour
 
         Inventory.Instance.AddItem(item);
     }
+
+    //‚±‚Ìˆ—‚ğ‘‚­‚±‚Æ‚ÅfoodSyste‚ğg‚í‚È‚­‚ÄÏ‚Ş
+    public void UseItem(StrollItemData item)
+    {
+        switch (item.itemType)
+        {
+            case StrollItemData.ItemType.Food:
+
+                bool success =
+                    StatusManager.Instance.IncreaseHunger(item.foodValue);
+
+                if (!success)
+                {
+                    Debug.Log("–• ‚¾‚©‚çH‚×‚ç‚ê‚È‚¢I");
+                    return;
+                }
+
+                StatusManager.Instance.AddExp(4);
+
+                Inventory.Instance.RemoveItem(item);
+
+                break;
+
+            case StrollItemData.ItemType.Shower:
+
+                StatusManager.Instance.IncreaseClean(item.cleanlinessValue);
+
+                Inventory.Instance.RemoveItem(item);
+
+                break;
+        }
+    }
 }

@@ -18,7 +18,6 @@ public class SaveData
     //éUï‡
     public bool IsWalking;
     public string walkEndTime;
-    public string lastWalkTime;
 
     //ÉZÅ[Éuéûä‘
     public string lastSaveTime;
@@ -61,7 +60,6 @@ public class SaveManager : MonoBehaviour
         //éUï‡
         data.IsWalking = WalkManager.Instance.isWalking;
         data.walkEndTime = WalkManager.Instance.endTime.ToString();
-        data.lastWalkTime = WalkManager.Instance.lastWalkTime.ToString();
 
         data.lastSaveTime = DateTime.Now.ToString();
 
