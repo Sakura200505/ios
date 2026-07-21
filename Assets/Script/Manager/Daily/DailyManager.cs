@@ -62,15 +62,14 @@ public class DailyManager : MonoBehaviour
         walkCount = 0;
     }
 
-    /*=========================
-        ミッション達成
-    =========================*/
+    //ミッション達成--------------------------------
 
     void CompleteLogin()
     {
         loginCompleted = true;
     }
 
+    //ご飯のミッションを達成できているかどうか
     public void CompleteFood()
     {
         if (foodCompleted) return;
@@ -79,6 +78,7 @@ public class DailyManager : MonoBehaviour
         Debug.Log("ごはんミッション達成！");
     }
 
+    //シャワーのミッションを達成できているかどうか
     public void CompleteShower()
     {
         if (showerCompleted) return;
@@ -87,6 +87,7 @@ public class DailyManager : MonoBehaviour
         Debug.Log("お風呂ミッション達成！");
     }
 
+    //触れ合いのミッションを達成できているかどうか
     public void CompleteStress()
     {
         if (stressCompleted) return;
@@ -95,9 +96,7 @@ public class DailyManager : MonoBehaviour
         Debug.Log("ふれあいミッション達成！");
     }
 
-    /*=========================
-          散歩関連
-    =========================*/
+    //散歩関係の処理----------------------------------
 
     // 散歩できるか
     public bool CanWalk()
