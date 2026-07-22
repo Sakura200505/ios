@@ -7,10 +7,10 @@ public class DailyManager : MonoBehaviour
 
     [Header("デイリーミッション")]
     public bool loginCompleted;
-    public bool foodCompleted;
-    public bool showerCompleted;
-    public bool stressCompleted;
 
+    [Header("報酬")]
+    public bool rewardReceived;
+    
     [Header("散歩")]
     public int walkCount;
     private const int maxWalkCount = 2;
@@ -29,14 +29,11 @@ public class DailyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     private void Start()
     {
         CheckDate();
         CompleteLogin();
     }
-
-    // 日付を確認
     void CheckDate()
     {
         string today = DateTime.Now.ToString("yyyyMMdd");
@@ -55,45 +52,56 @@ public class DailyManager : MonoBehaviour
     void ResetDaily()
     {
         loginCompleted = false;
-        foodCompleted = false;
-        showerCompleted = false;
-        stressCompleted = false;
+        rewardReceived = false;
 
         walkCount = 0;
     }
 
-    //ミッション達成--------------------------------
 
+    //ミッション判定処理
+    public bool IsFoodComplete()
+    {
+        return StatusManager.Instance.hunger >= 100;
+    }
+
+    public bool IsShowerComplete()
+    {
+        return StatusManager.Instance.clean >= 100;
+    }
+
+    public bool IsStressComplete()
+    {
+        return StatusManager.Instance.stress <= 0;
+    }
+
+    public bool IsWalkComplete()
+    {
+        return walkCount >= maxWalkCount;
+    }
     void CompleteLogin()
     {
         loginCompleted = true;
     }
 
-    //ご飯のミッションを達成できているかどうか
-    public void CompleteFood()
+    //ミッション達成、報酬の処理--------------------------------
+    public bool CanReceiveReward()
     {
-        if (foodCompleted) return;
-
-        foodCompleted = true;
-        Debug.Log("ごはんミッション達成！");
+        return loginCompleted
+            && IsFoodComplete()
+            && IsShowerComplete()
+            && IsStressComplete()
+            && IsWalkComplete()
+            && !rewardReceived;
     }
 
-    //シャワーのミッションを達成できているかどうか
-    public void CompleteShower()
+    public void ReceiveReward()
     {
-        if (showerCompleted) return;
+        if (!CanReceiveReward())
+            return;
 
-        showerCompleted = true;
-        Debug.Log("お風呂ミッション達成！");
-    }
+        rewardReceived = true;
 
-    //触れ合いのミッションを達成できているかどうか
-    public void CompleteStress()
-    {
-        if (stressCompleted) return;
-
-        stressCompleted = true;
-        Debug.Log("ふれあいミッション達成！");
+        Debug.Log("デイリー報酬を受け取りました");
     }
 
     //散歩関係の処理----------------------------------
