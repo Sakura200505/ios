@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: "\u30D4\u30FC\u30C1"
   itemType: 0
   expValue: 0
-  description: "\u6E80\u8179\u30B2\u30FC\u30B8\u304C20\u5897\u3048\u308B\u3088\uFF01"
-  foodValue: 20
+  description: "\u6E80\u8179\u30B2\u30FC\u30B8\u304C100\u5897\u3048\u308B\u3088\uFF01"
+  foodValue: 100
   cleanlinessValue: 0

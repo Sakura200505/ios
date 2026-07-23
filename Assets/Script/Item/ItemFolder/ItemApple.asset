@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 7660b40d1800e9d4cbc840c07030de47, type: 3}
   itemName: "\u30EA\u30F3\u30B4"
   itemType: 0
-  description: "\u6E80\u8179\u30B2\u30FC\u30B8\u304C10\u5897\u3048\u308B\u3088\uFF01"
-  foodValue: 10
+  expValue: 0
+  description: "\u6E80\u8179\u30B2\u30FC\u30B8\u304C30\u5897\u3048\u308B\u3088\uFF01"
+  foodValue: 30
   cleanlinessValue: 0

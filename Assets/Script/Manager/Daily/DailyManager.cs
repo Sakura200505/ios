@@ -6,7 +6,9 @@ public class DailyManager : MonoBehaviour
     public static DailyManager Instance;
 
     [Header("デイリーミッション")]
-    public bool loginCompleted;
+    public float foodProgress;
+    public float showerProgress;
+    public float stressProgress;
 
     [Header("報酬")]
     public bool rewardReceived;
@@ -19,6 +21,8 @@ public class DailyManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"DailyManager Awake  ID:{GetInstanceID()}");
+
         if (Instance == null)
         {
             Instance = this;
@@ -26,13 +30,13 @@ public class DailyManager : MonoBehaviour
         }
         else
         {
+            Debug.LogError($"重複検知！ Instance:{Instance.GetInstanceID()}  New:{GetInstanceID()}");
             Destroy(gameObject);
         }
     }
     private void Start()
     {
         CheckDate();
-        CompleteLogin();
     }
     void CheckDate()
     {
@@ -48,48 +52,46 @@ public class DailyManager : MonoBehaviour
         }
     }
 
-    // デイリーミッションをリセット
     void ResetDaily()
     {
-        loginCompleted = false;
-        rewardReceived = false;
+        foodProgress = 0;
+        showerProgress = 0;
+        stressProgress = 0;
 
+        rewardReceived = false;
         walkCount = 0;
     }
 
 
     //ミッション判定処理
-    public bool IsFoodComplete()
+    private void Update()
     {
-        return StatusManager.Instance.hunger >= 100;
+        CheckMission();
     }
 
-    public bool IsShowerComplete()
+    void CheckMission()
     {
-        return StatusManager.Instance.clean >= 100;
-    }
+        if (StatusManager.Instance.hunger >= 100)
+            foodProgress = 100;
 
-    public bool IsStressComplete()
-    {
-        return StatusManager.Instance.stress <= 0;
+        if (StatusManager.Instance.clean >= 100)
+            showerProgress = 100;
+
+        if (StatusManager.Instance.stress <= 0)
+            stressProgress = 100;
     }
 
     public bool IsWalkComplete()
     {
         return walkCount >= maxWalkCount;
     }
-    void CompleteLogin()
-    {
-        loginCompleted = true;
-    }
 
     //ミッション達成、報酬の処理--------------------------------
     public bool CanReceiveReward()
     {
-        return loginCompleted
-            && IsFoodComplete()
-            && IsShowerComplete()
-            && IsStressComplete()
+        return foodProgress >= 100
+            && showerProgress >= 100
+            && stressProgress >= 100
             && IsWalkComplete()
             && !rewardReceived;
     }
@@ -129,5 +131,10 @@ public class DailyManager : MonoBehaviour
     public int GetRemainingWalk()
     {
         return maxWalkCount - walkCount;
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log($"DailyManager Destroy ID:{GetInstanceID()}");
     }
 }

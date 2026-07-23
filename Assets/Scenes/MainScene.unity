@@ -2548,7 +2548,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d168b58721c5dd48a8bf5df6e66399b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailyManager
-  loginCompleted: 0
+  foodProgress: 0
+  showerProgress: 0
+  stressProgress: 0
   rewardReceived: 0
   walkCount: 0
 --- !u!1 &490870132
@@ -3828,7 +3830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 298, y: -148}
+  m_AnchoredPosition: {x: -299, y: -773}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &884746616
@@ -9054,7 +9056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -296, y: -139}
+  m_AnchoredPosition: {x: 307, y: -139}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1827481034
@@ -9440,7 +9442,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DailyUIManager
   dailyPanel: {fileID: 161537081}
-  loginText: {fileID: 0}
   foodSlider: {fileID: 2058342626}
   showerSlider: {fileID: 946739421}
   stressSlider: {fileID: 384107861}
@@ -9764,7 +9765,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -293, y: -789}
+  m_AnchoredPosition: {x: -293, y: -153}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1998850877

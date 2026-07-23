@@ -25,6 +25,8 @@ public class StatusManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"StatusManager Awake {GetInstanceID()}");
+
         //Singleton化
         if (Instance == null)
         {
@@ -47,6 +49,8 @@ public class StatusManager : MonoBehaviour
     //ゲームをstartする時に全てのステータスをロードする為の処理
     private void Start()
     {
+        Debug.Log($"StatusManager Start {GetInstanceID()}");
+
         var data = SaveManager.Instance.Load();
 
         if(data != null)

@@ -10,12 +10,16 @@ public class WalkManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log($"WalkManager Awake {GetInstanceID()}");
+
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
 
     private void Start()
     {
+        Debug.Log($"WalkManager Start {GetInstanceID()}");
+
         Load();
     }
 
@@ -30,35 +34,21 @@ public class WalkManager : MonoBehaviour
     //散歩開始（ボタンから呼ぶ）
     public void StartWalk()
     {
-        Debug.Log("散歩ボタンを押した");
-
-        // 散歩できるかチェック
-        if (!CanWalk())
-        {
-            if (isWalking)
-            {
-                Debug.Log("現在散歩中です！");
-            }
-            else
-            {
-                Debug.Log("今日はもう散歩できません！");
-            }
-
-            return;
-        }
+        Debug.Log("① StartWalk開始");
 
         // デイリーの散歩回数を追加
         DailyManager.Instance.AddWalk();
-
-        Debug.Log("散歩開始");
+        Debug.Log("② AddWalk完了");
 
         isWalking = true;
 
-        int duration = 10; // テスト用（後で30分などに変更）
+        int duration = 10;
         endTime = DateTime.Now.AddSeconds(duration);
+        Debug.Log("③ 時間設定完了");
 
         // 散歩開始状態を保存
         SaveManager.Instance.Save();
+        Debug.Log("④ Save完了");
 
         // 散歩終了通知
         NotificationManager.Instance.ScheduleNotification(
@@ -66,6 +56,7 @@ public class WalkManager : MonoBehaviour
             "ペットが帰ってきたよ！",
             duration
         );
+        Debug.Log("⑤ Notification完了");
     }
 
     public float GetRemainingTime()
