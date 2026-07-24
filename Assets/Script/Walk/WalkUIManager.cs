@@ -6,30 +6,31 @@ public class WalkUIManager : MonoBehaviour
     [Header("散歩中UI")]
     [SerializeField] private GameObject walkPanel;
 
-    [Header("ペットのUI")]
+    [Header("ペットUI")]
     [SerializeField] private GameObject petObject;
 
-    [Header("タイマーのUI")]
+    [Header("タイマー")]
     [SerializeField] private TMP_Text timerText;
 
     private void Update()
     {
-        if (WalkManager.Instance.isWalking)
-        {
-            walkPanel.SetActive(true);
-            petObject.SetActive(false);
+        // WalkManagerがまだ生成されていない場合
+        if (WalkManager.Instance == null)
+            return;
 
-            float remain = WalkManager.Instance.GetRemainingTime();
+        bool walking = WalkManager.Instance.isWalking;
 
-            int minute = Mathf.FloorToInt(remain / 60);
-            int second = Mathf.FloorToInt(remain % 60);
+        walkPanel.SetActive(walking);
+        petObject.SetActive(!walking);
 
-            timerText.text = $"{minute:00}:{second:00}";
-        }
-        else
-        {
-            walkPanel.SetActive(false);
-            petObject.SetActive(true);
-        }
+        if (!walking)
+            return;
+
+        float remain = WalkManager.Instance.GetRemainingTime();
+
+        int minute = Mathf.FloorToInt(remain / 60f);
+        int second = Mathf.FloorToInt(remain % 60f);
+
+        timerText.text = $"{minute:00}:{second:00}";
     }
 }

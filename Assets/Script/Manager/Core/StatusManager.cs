@@ -103,11 +103,15 @@ public class StatusManager : MonoBehaviour
         hunger += amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
+        // デイリーミッション達成
+        if (hunger >= maxHunger)
+        {
+            DailyManager.Instance.CompleteFood();
+        }
+
         SaveManager.Instance.Save();
 
         return true;
-
-        //Debug.Log("満腹度：" + hunger);
     }
 
     //満腹度を減らす
@@ -135,11 +139,15 @@ public class StatusManager : MonoBehaviour
     public void IncreaseClean(float amount)
     {
         clean += amount;
-        clean = Mathf.Clamp(clean, 0,maxClean);
+        clean = Mathf.Clamp(clean, 0, maxClean);
+
+        // デイリーミッション達成
+        if (clean >= maxClean)
+        {
+            DailyManager.Instance.CompleteShower();
+        }
 
         SaveManager.Instance.Save();
-
-       // Debug.Log("清潔度：" + clean);
     }
 
     //清潔度を減らす（時間経過によって汚くなる表現を演出）
@@ -177,21 +185,24 @@ public class StatusManager : MonoBehaviour
     //撫でることによって不満度が減っていく
     public bool DecreaseStress(float amount)
     {
-        if (stress < 1) 
+        if (stress <= 0)
         {
             stress = 0;
-
             return false;
         }
 
         stress -= amount;
         stress = Mathf.Clamp(stress, 0, maxStress);
 
+        // デイリーミッション達成
+        if (stress <= 0)
+        {
+            DailyManager.Instance.CompleteStress();
+        }
+
         SaveManager.Instance.Save();
 
         return true;
-
-       // Debug.Log("不満度：" + stress);
     }
 
     //UI用処理

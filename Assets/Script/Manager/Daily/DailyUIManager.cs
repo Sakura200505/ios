@@ -21,6 +21,12 @@ public class DailyUIManager : MonoBehaviour
 
     [Header("報酬ボタン")]
     [SerializeField] private Button rewardButton;
+    [SerializeField] private Button foodButton;
+    [SerializeField] private Button showerButton;
+    [SerializeField] private Button stressButton;
+    [SerializeField] private Button walkButton;
+
+    [SerializeField] private Slider rewardSlider;
     [SerializeField] private TMP_Text rewardText;
 
     // デイリーを開く
@@ -39,6 +45,10 @@ public class DailyUIManager : MonoBehaviour
     // UI更新
     public void RefreshUI()
     {
+        Debug.Log($"UI ID:{DailyManager.Instance.GetInstanceID()} food={DailyManager.Instance.foodProgress}");
+
+        DailyManager daily = DailyManager.Instance;
+
         // ごはん
         foodSlider.value = DailyManager.Instance.foodProgress / 100f;
         foodText.text = $"{DailyManager.Instance.foodProgress:0}/100";
@@ -55,15 +65,59 @@ public class DailyUIManager : MonoBehaviour
         walkSlider.value = (float)DailyManager.Instance.walkCount / 2f;
         walkText.text = $"{DailyManager.Instance.walkCount}/2";
 
-        // 報酬ボタン
+        // 各ミッション受け取りボタン
+        foodButton.interactable =
+            DailyManager.Instance.foodProgress >= 100 && !DailyManager.Instance.foodReceived;
+
+        showerButton.interactable =
+            DailyManager.Instance.showerProgress >= 100 && !DailyManager.Instance.showerReceived;
+
+        stressButton.interactable =
+            DailyManager.Instance.stressProgress >= 100 && !DailyManager.Instance.stressReceived;
+
+        walkButton.interactable =
+            DailyManager.Instance.IsWalkComplete() && !DailyManager.Instance.walkReceived;
+
+        // 最終報酬ゲージ
+        rewardSlider.value = DailyManager.Instance.rewardProgress / 100f;
+
+        // 最終報酬ボタン
         rewardButton.interactable = DailyManager.Instance.CanReceiveReward();
 
         rewardText.text = DailyManager.Instance.rewardReceived
             ? "受取済み"
-            : "報酬を受け取る";
+            : "ゲームチケットを受け取る";
     }
 
-    // 報酬受け取り
+    //ご飯の報酬を受け取る処理
+    public void ReceiveFood()
+    {
+        DailyManager.Instance.ReceiveFood();
+        RefreshUI();
+    }
+
+    //シャワーの報酬を受け取る処理
+    public void ReceiveShower()
+    {
+        DailyManager.Instance.ReceiveShower();
+        RefreshUI();
+    }
+
+    //触れ合いの報酬を受け取る処理
+    public void ReceiveStress()
+    {
+        DailyManager.Instance.ReceiveStress();
+        RefreshUI();
+    }
+
+    //散歩の報酬を受け取る処理
+    public void ReceiveWalk()
+    {
+        DailyManager.Instance.ReceiveWalk();
+        RefreshUI();
+    }
+
+    // 最終報酬受け取り
     public void ReceiveReward()
     {
         DailyManager.Instance.ReceiveReward();

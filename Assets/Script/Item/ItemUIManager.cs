@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using TMPro;
 
 public class ItemUIManager : MonoBehaviour
@@ -11,6 +10,9 @@ public class ItemUIManager : MonoBehaviour
 
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform slotParent;
+
+    [Header("インベントリUI")]
+    [SerializeField] private GameObject inventoryPanel;
 
     [Header("詳細UI")]
     [SerializeField] private Image datailIcon;
@@ -23,16 +25,15 @@ public class ItemUIManager : MonoBehaviour
         Instance = this;
     }
 
-
     public void Refresh(List<StrollItemData> items)
     {
-        //全削除
+        // 全削除
         foreach (Transform child in slotParent)
         {
             Destroy(child.gameObject);
         }
 
-        //所為アイテムだけを生成する
+        // 所持アイテム生成
         foreach (var item in items)
         {
             GameObject slot = Instantiate(slotPrefab, slotParent);
@@ -40,7 +41,6 @@ public class ItemUIManager : MonoBehaviour
             slotScript.Setup(item, this);
         }
     }
-
 
     public void ShowItemInfo(StrollItemData item)
     {
@@ -61,5 +61,12 @@ public class ItemUIManager : MonoBehaviour
         ItemManager.Instance.UseItem(currentItem);
 
         detailPanel.SetActive(false);
+    }
+
+    // インベントリを閉じる
+    public void CloseInventory()
+    {
+        detailPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
     }
 }

@@ -10,9 +10,16 @@ public class DailyManager : MonoBehaviour
     public float showerProgress;
     public float stressProgress;
 
-    [Header("報酬")]
+    [Header("ミッション受け取り")]
+    public bool foodReceived;
+    public bool showerReceived;
+    public bool stressReceived;
+    public bool walkReceived;
+
+    [Header("最終報酬")]
+    public float rewardProgress;
     public bool rewardReceived;
-    
+
     [Header("散歩")]
     public int walkCount;
     private const int maxWalkCount = 2;
@@ -21,7 +28,7 @@ public class DailyManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log($"DailyManager Awake  ID:{GetInstanceID()}");
+        Debug.Log($"DailyManager Awake ID:{GetInstanceID()}");
 
         if (Instance == null)
         {
@@ -30,14 +37,17 @@ public class DailyManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"重複検知！ Instance:{Instance.GetInstanceID()}  New:{GetInstanceID()}");
+            Debug.LogError($"重複検知！ Instance:{Instance.GetInstanceID()} New:{GetInstanceID()}");
             Destroy(gameObject);
         }
     }
+
     private void Start()
     {
         CheckDate();
     }
+
+    // 日付変更
     void CheckDate()
     {
         string today = DateTime.Now.ToString("yyyyMMdd");
@@ -54,31 +64,42 @@ public class DailyManager : MonoBehaviour
 
     void ResetDaily()
     {
+        // ミッション進捗
         foodProgress = 0;
         showerProgress = 0;
         stressProgress = 0;
 
-        rewardReceived = false;
+        // 散歩
         walkCount = 0;
+
+        // ミッション受け取り
+        foodReceived = false;
+        showerReceived = false;
+        stressReceived = false;
+        walkReceived = false;
+
+        // 最終報酬
+        rewardProgress = 0;
+        rewardReceived = false;
     }
 
+    // ミッション達成
 
-    //ミッション判定処理
-    private void Update()
+    public void CompleteFood()
     {
-        CheckMission();
+        foodProgress = 100;
+
+        Debug.Log($"CompleteFood ID:{GetInstanceID()} food={foodProgress}");
     }
 
-    void CheckMission()
+    public void CompleteShower()
     {
-        if (StatusManager.Instance.hunger >= 100)
-            foodProgress = 100;
+        showerProgress = 100;
+    }
 
-        if (StatusManager.Instance.clean >= 100)
-            showerProgress = 100;
-
-        if (StatusManager.Instance.stress <= 0)
-            stressProgress = 100;
+    public void CompleteStress()
+    {
+        stressProgress = 100;
     }
 
     public bool IsWalkComplete()
@@ -86,14 +107,47 @@ public class DailyManager : MonoBehaviour
         return walkCount >= maxWalkCount;
     }
 
-    //ミッション達成、報酬の処理--------------------------------
+    // ミッション受け取り
+    public void ReceiveFood()
+    {
+        if (foodProgress < 100 || foodReceived)
+            return;
+
+        foodReceived = true;
+        rewardProgress = Mathf.Clamp(rewardProgress + 25, 0, 100);
+    }
+
+    public void ReceiveShower()
+    {
+        if (showerProgress < 100 || showerReceived)
+            return;
+
+        showerReceived = true;
+        rewardProgress = Mathf.Clamp(rewardProgress + 25, 0, 100);
+    }
+
+    public void ReceiveStress()
+    {
+        if (stressProgress < 100 || stressReceived)
+            return;
+
+        stressReceived = true;
+        rewardProgress = Mathf.Clamp(rewardProgress + 25, 0, 100);
+    }
+
+    public void ReceiveWalk()
+    {
+        if (!IsWalkComplete() || walkReceived)
+            return;
+
+        walkReceived = true;
+        rewardProgress = Mathf.Clamp(rewardProgress + 25, 0, 100);
+    }
+
+    // 最終報酬
     public bool CanReceiveReward()
     {
-        return foodProgress >= 100
-            && showerProgress >= 100
-            && stressProgress >= 100
-            && IsWalkComplete()
-            && !rewardReceived;
+        return rewardProgress >= 100 && !rewardReceived;
     }
 
     public void ReceiveReward()
@@ -103,18 +157,16 @@ public class DailyManager : MonoBehaviour
 
         rewardReceived = true;
 
-        Debug.Log("デイリー報酬を受け取りました");
+        // TODO: ゲームチケット追加
+        Debug.Log("ゲームチケットを獲得！");
     }
 
-    //散歩関係の処理----------------------------------
-
-    // 散歩できるか
+    // 散歩
     public bool CanWalk()
     {
         return walkCount < maxWalkCount;
     }
 
-    // 散歩回数を追加
     public bool AddWalk()
     {
         if (!CanWalk())
@@ -127,14 +179,8 @@ public class DailyManager : MonoBehaviour
         return true;
     }
 
-    // 残り散歩回数
     public int GetRemainingWalk()
     {
         return maxWalkCount - walkCount;
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log($"DailyManager Destroy ID:{GetInstanceID()}");
     }
 }

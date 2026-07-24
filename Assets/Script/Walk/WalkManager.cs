@@ -5,21 +5,29 @@ public class WalkManager : MonoBehaviour
 {
     public static WalkManager Instance;
 
-    public bool isWalking = false;
+    [Header("散歩状態")]
+    public bool isWalking;
     public DateTime endTime;
 
     private void Awake()
     {
         Debug.Log($"WalkManager Awake {GetInstanceID()}");
 
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     private void Start()
     {
         Debug.Log($"WalkManager Start {GetInstanceID()}");
-
         Load();
     }
 
@@ -31,98 +39,128 @@ public class WalkManager : MonoBehaviour
         }
     }
 
-    //散歩開始（ボタンから呼ぶ）
+    //==================================================
+    // 散歩開始
+    //==================================================
     public void StartWalk()
     {
-        Debug.Log("① StartWalk開始");
+        Debug.Log("散歩開始");
 
-        // デイリーの散歩回数を追加
-        DailyManager.Instance.AddWalk();
-        Debug.Log("② AddWalk完了");
+        if (isWalking)
+        {
+            Debug.Log("現在散歩中です");
+            return;
+        }
+
+        if (!DailyManager.Instance.AddWalk())
+        {
+            Debug.Log("今日はもう散歩できません");
+            return;
+        }
 
         isWalking = true;
+        endTime = DateTime.Now.AddSeconds(10);   // テスト用
 
-        int duration = 10;
-        endTime = DateTime.Now.AddSeconds(duration);
-        Debug.Log("③ 時間設定完了");
+        Save();
 
-        // 散歩開始状態を保存
-        SaveManager.Instance.Save();
-        Debug.Log("④ Save完了");
+        if (NotificationManager.Instance != null)
+        {
+            NotificationManager.Instance.ScheduleNotification(
+                "散歩終了！",
+                "ペットが帰ってきたよ！",
+                10
+            );
+        }
 
-        // 散歩終了通知
-        NotificationManager.Instance.ScheduleNotification(
-            "散歩終了！",
-            "ペットが帰ってきたよ！",
-            duration
-        );
-        Debug.Log("⑤ Notification完了");
+        Debug.Log($"散歩開始 残り回数:{DailyManager.Instance.GetRemainingWalk()}");
     }
 
-    public float GetRemainingTime()
+    //==================================================
+    // 散歩終了
+    //==================================================
+    private void FinishWalk()
     {
         if (!isWalking)
-            return 0f;
+            return;
 
-        return Mathf.Max(0f, (float)(endTime - DateTime.Now).TotalSeconds);
+        isWalking = false;
+
+        Debug.Log("散歩終了");
+
+        if (ItemManager.Instance != null)
+        {
+            ItemManager.Instance.GetRandomItem();
+        }
+
+        Save();
     }
 
-    //散歩が可能かの判定
+    //==================================================
+    // 散歩可能？
+    //==================================================
     public bool CanWalk()
     {
         return !isWalking && DailyManager.Instance.CanWalk();
     }
 
-    //散歩終了の判定
-    void FinishWalk()
+    //==================================================
+    // 残り時間
+    //==================================================
+    public float GetRemainingTime()
     {
-        isWalking = false;
+        if (!isWalking)
+            return 0;
 
-        Debug.Log("散歩終了");
-
-        //アイテムを取得
-        ItemManager.Instance.GetRandomItem();
-
-        //散歩終了を保存
-        SaveManager.Instance.Save();
+        return Mathf.Max(0, (float)(endTime - DateTime.Now).TotalSeconds);
     }
 
-    //セーブ機能
+    //==================================================
+    // セーブ
+    //==================================================
     public void Save()
     {
-        SaveManager.Instance.Save();
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.Save();
+        }
     }
 
-    //ロード機能
-    void Load()
+    //==================================================
+    // ロード
+    //==================================================
+    private void Load()
     {
-        var data = SaveManager.Instance.Load();
-        if (data == null) return;
+        if (SaveManager.Instance == null)
+            return;
+
+        SaveData data = SaveManager.Instance.Load();
+
+        if (data == null)
+            return;
 
         isWalking = data.IsWalking;
 
-        if (isWalking)
+        if (!isWalking)
+            return;
+
+        endTime = DateTime.Parse(data.walkEndTime);
+
+        if (DateTime.Now >= endTime)
         {
-            endTime = DateTime.Parse(data.walkEndTime);
+            FinishWalk();
+        }
+        else
+        {
+            int remain = Mathf.CeilToInt((float)(endTime - DateTime.Now).TotalSeconds);
 
-            //オフライン状態で終わっているかのチェック
-            if (DateTime.Now >= endTime)
+            if (NotificationManager.Instance != null)
             {
-                FinishWalk();
+                NotificationManager.Instance.ScheduleNotification(
+                    "散歩終了！",
+                    "ペットが帰ってきたよ！",
+                    remain
+                );
             }
-            else
-            {
-                //残り時間で通知を再セット
-                TimeSpan remaining = endTime - DateTime.Now;
-
-                NotificationManager.Instance.ScheduleNotification
-                    (
-                      "散歩終了！",
-                      "ペットが帰ってきたよ！",
-                      (int)remaining.TotalSeconds
-                    );
-            }
-
         }
     }
 }
