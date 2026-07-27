@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance == null)
+        if (MiniGameManager.Instance == null)
         {
             Debug.LogError("GameManager.Instance ‚ª null");
             return;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance.isGameOver)
+        if (MiniGameManager.Instance.isGameOver)
             return;
 
 #if UNITY_EDITOR
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            GameManager.Instance.GameOver();
+            MiniGameManager.Instance.GameOver();
         }
     }
 
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Goal"))
         {
-            GameManager.Instance.GameClear();
+            MiniGameManager.Instance.GameClear();
         }
     }
 }

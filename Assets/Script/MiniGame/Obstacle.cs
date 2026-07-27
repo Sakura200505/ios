@@ -6,7 +6,7 @@ public class Obstacle : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isGameOver)
+        if (MiniGameManager.Instance.isGameOver)
             return;
 
         transform.Translate(Vector3.left * speed * Time.deltaTime);

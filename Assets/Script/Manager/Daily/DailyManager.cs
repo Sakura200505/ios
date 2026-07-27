@@ -157,7 +157,9 @@ public class DailyManager : MonoBehaviour
 
         rewardReceived = true;
 
-        // TODO: ゲームチケット追加
+        // ゲームチケットを1枚追加
+        TicketManager.Instance.AddTicket(1);
+
         Debug.Log("ゲームチケットを獲得！");
     }
 

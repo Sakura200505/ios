@@ -6,7 +6,7 @@ public class Goal : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.isGameOver)
+        if (MiniGameManager.Instance.isGameOver)
             return;
 
         transform.Translate(Vector2.left * speed * Time.deltaTime);
