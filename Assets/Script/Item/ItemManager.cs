@@ -7,6 +7,9 @@ public class ItemManager : MonoBehaviour
 
     public List<StrollItemData> itemList;
 
+    [Header("ご飯を食べたときのエフェクト再生")]
+    [SerializeField] private ParticleSystem petEffect;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -41,6 +44,9 @@ public class ItemManager : MonoBehaviour
                 }
 
                 StatusManager.Instance.AddExp(4);
+
+                //ご飯のエフェクト
+                petEffect.Play();
 
                 Inventory.Instance.RemoveItem(item);
 

@@ -23,6 +23,11 @@ public class StatusManager : MonoBehaviour
     public int exp;
     public int maxExp = 100;
 
+    [Header("レベルアップ演出")]
+    [SerializeField] private ParticleSystem petEffect;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip levelUpSound;
+
     private void Awake()
     {
         Debug.Log($"StatusManager Awake {GetInstanceID()}");
@@ -244,27 +249,43 @@ public class StatusManager : MonoBehaviour
     //ご飯をあげたりシャワーをすることによって獲得できる経験値でレベルをあげていく
     private void LevelUp()
     {
+        // レベルアップ前の成長段階
+        int beforeStage = GetDogStage();
+
         exp -= maxExp;
         level++;
 
-        SaveManager.Instance.Save();
+        // レベルアップ後の成長段階
+        int afterStage = GetDogStage();
 
-       // Debug.Log("レベルアップ！　Lv." + level);
+        // 成長段階が変わった時だけ
+        if (beforeStage != afterStage)
+        {
+            Debug.Log("成長した！");
+
+            // レベルアップエフェクト再生
+            petEffect.Play();
+
+            // レベルアップ効果音再生
+            audioSource.PlayOneShot(levelUpSound);
+        }
+
+        SaveManager.Instance.Save();
     }
 
     //ワンちゃんの成長段階を取得する
     public int GetDogStage()
     {
-        if (level >= 41)
+        if (level >= 40)
             return 4;      //犬の画像
 
-        if (level >= 31)
+        if (level >= 30)
             return 3;      //毛玉段階4
 
-        if (level >= 21)
+        if (level >= 20)
             return 2;      //毛玉段階3
 
-        if (level >= 11)   
+        if (level >= 10)   
             return 1;      //毛玉段階2
 
         return 0;    //毛玉

@@ -35,6 +35,6 @@ public class MiniGameUIManager : MonoBehaviour
 
         ticketText.text = $"{TicketManager.Instance.TicketCount}";
 
-        SceneManager.LoadScene("GameScene1");
+        SceneManager.LoadScene("MiniGameScene");
     }
 }

@@ -8,6 +8,9 @@ public class StressSystem : MonoBehaviour
     [Header("撫でたことによる経験値")]
     [SerializeField] private int expAmount = 2;
 
+    [Header("撫でるエフェクト")]
+    [SerializeField] private ParticleSystem petEffect;
+
     public void Pet()
     {
         bool success = StatusManager.Instance.DecreaseStress(stressDownAmount);
@@ -19,6 +22,9 @@ public class StressSystem : MonoBehaviour
         }
 
         StatusManager.Instance.AddExp(expAmount);
+
+        //エフェクト再生
+        petEffect.Play();
 
         Debug.Log("撫でた！");
     }

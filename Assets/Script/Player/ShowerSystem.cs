@@ -8,10 +8,17 @@ public class ShowerSystem : MonoBehaviour
     [Header("経験値")]
     [SerializeField] private int expAmount = 2;
 
+    [Header("シャワーした時のエフェクト")]
+    [SerializeField] private ParticleSystem showerEffect;
+
+    [Header("シャワー効果音")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip showerSound;
+
     public void Shower()
     {
-        //清潔度がmaxならボタンを押しても反応しないようにする
-        if(StatusManager.Instance.clean >= StatusManager.Instance.maxClean)
+        // 清潔度がmaxならボタンを押しても反応しないようにする
+        if (StatusManager.Instance.clean >= StatusManager.Instance.maxClean)
         {
             Debug.Log("もうきれいな状態だよ！");
             return;
@@ -19,6 +26,13 @@ public class ShowerSystem : MonoBehaviour
 
         StatusManager.Instance.IncreaseClean(cleanAmount);
         StatusManager.Instance.AddExp(expAmount);
+
+        // エフェクト再生
+        showerEffect.Play();
+
+        // 効果音再生
+        Debug.Log("シャワー音を再生！");
+        audioSource.PlayOneShot(showerSound);
 
         Debug.Log("シャワーをした！");
     }
