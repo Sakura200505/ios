@@ -83,9 +83,9 @@ public class StatusManager : MonoBehaviour
 
         float hours = (float)span.TotalHours;
 
-        hunger -= hours * 1000f;
-        clean -= hours * 3f;
-        stress += hours * 2f;
+        hunger -= hours * 2f;
+        clean -= hours * 1f;
+        stress += hours * 3f;
 
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
         clean = Mathf.Clamp(clean, 0, maxClean);
@@ -105,6 +105,7 @@ public class StatusManager : MonoBehaviour
             return false;
         }
 
+        //数値が超えないように制限
         hunger += amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
@@ -143,6 +144,7 @@ public class StatusManager : MonoBehaviour
     //清潔度を増やす（シャワーボタンを押すことによってゲージを増やす）
     public void IncreaseClean(float amount)
     {
+
         clean += amount;
         clean = Mathf.Clamp(clean, 0, maxClean);
 

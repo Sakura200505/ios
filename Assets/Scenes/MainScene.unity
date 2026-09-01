@@ -15768,7 +15768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e422332dad74443a665ee298b4222c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetSystem
-  stressDownAmount: 15
+  stressDownAmount: 5
   expAmount: 3
   petEffect: {fileID: 0}
 --- !u!1 &920430303
@@ -23017,6 +23017,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 150941921}
+        m_TargetAssemblyTypeName: ButtonSEManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1226835134
 GameObject:
   m_ObjectHideFlags: 0
@@ -24742,9 +24754,9 @@ MonoBehaviour:
   maxHunger: 100
   hunger: 100
   maxClean: 100
-  clean: 30
+  clean: 100
   maxStress: 100
-  stress: 20
+  stress: 0
   level: 1
   exp: 0
   maxExp: 100
@@ -26154,6 +26166,18 @@ MonoBehaviour:
       - m_Target: {fileID: 946459074}
         m_TargetAssemblyTypeName: ItemUIManager, Assembly-CSharp
         m_MethodName: UseSelectedItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 150941921}
+        m_TargetAssemblyTypeName: ButtonSEManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

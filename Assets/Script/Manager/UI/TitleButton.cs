@@ -5,6 +5,6 @@ public class TitleButton : MonoBehaviour
 {
    public void StartGame()
     {
-        SceneManager.LoadScene("SelectScene");
+        SceneManager.LoadScene("MainScene");
     }
 }
