@@ -17,21 +17,23 @@ public class ShowerSystem : MonoBehaviour
 
     public void Shower()
     {
-        // 清潔度がmaxならボタンを押しても反応しないようにする
+        // 清潔度がMAXなら何もしない
         if (StatusManager.Instance.clean >= StatusManager.Instance.maxClean)
         {
             Debug.Log("もうきれいな状態だよ！");
             return;
         }
 
+        // 清潔度を回復
         StatusManager.Instance.IncreaseClean(cleanAmount);
+
+        // 経験値を追加
         StatusManager.Instance.AddExp(expAmount);
 
         // エフェクト再生
         showerEffect.Play();
 
         // 効果音再生
-        Debug.Log("シャワー音を再生！");
         audioSource.PlayOneShot(showerSound);
 
         Debug.Log("シャワーをした！");

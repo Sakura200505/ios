@@ -8,15 +8,15 @@ public class StatusManager : MonoBehaviour
 
     [Header("満腹度")]
     public float maxHunger = 100f;   
-    public float hunger = 50f;
+    public float hunger = 100f;
 
     [Header("清潔度")]
     public float maxClean = 100f;
-    public float clean = 20f;
+    public float clean = 100f;
 
     [Header("不満度")]
     public float maxStress = 100f;
-    public float stress = 50f;
+    public float stress = 0f;
 
     [Header("レベル")]
     public int level = 0;
@@ -142,8 +142,13 @@ public class StatusManager : MonoBehaviour
     //ここからシャワーの処理----------------------------------------*/
 
     //清潔度を増やす（シャワーボタンを押すことによってゲージを増やす）
-    public void IncreaseClean(float amount)
+    public bool IncreaseClean(float amount)
     {
+        // maxなら回復しない
+        if (clean >= maxClean)
+        {
+            return false;
+        }
 
         clean += amount;
         clean = Mathf.Clamp(clean, 0, maxClean);
@@ -155,6 +160,8 @@ public class StatusManager : MonoBehaviour
         }
 
         SaveManager.Instance.Save();
+
+        return true;
     }
 
     //清潔度を減らす（時間経過によって汚くなる表現を演出）

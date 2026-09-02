@@ -6,7 +6,7 @@ public class StressSystem : MonoBehaviour
     [SerializeField] private float stressDownAmount = 15f;
 
     [Header("撫でたことによる経験値")]
-    [SerializeField] private int expAmount = 2;
+    [SerializeField] private int expAmount = 1;
 
     [Header("撫でるエフェクト")]
     [SerializeField] private ParticleSystem petEffect;
