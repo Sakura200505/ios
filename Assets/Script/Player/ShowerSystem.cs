@@ -6,7 +6,7 @@ public class ShowerSystem : MonoBehaviour
     [SerializeField] private float cleanAmount = 100f;
 
     [Header("経験値")]
-    [SerializeField] private int expAmount = 2;
+    [SerializeField] private int expAmount = 1;
 
     [Header("シャワーした時のエフェクト")]
     [SerializeField] private ParticleSystem showerEffect;

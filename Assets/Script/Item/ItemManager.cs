@@ -43,7 +43,7 @@ public class ItemManager : MonoBehaviour
                     return;
                 }
 
-                StatusManager.Instance.AddExp(4);
+                StatusManager.Instance.AddExp(1);
 
                 //ご飯のエフェクト
                 petEffect.Play();
