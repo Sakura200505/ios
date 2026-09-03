@@ -83,9 +83,9 @@ public class StatusManager : MonoBehaviour
 
         float hours = (float)span.TotalHours;
 
-        hunger -= hours * 2f;
-        clean -= hours * 1f;
-        stress += hours * 3f;
+        hunger -= hours * 0.5f;
+        clean -= hours * 0.3f;
+        stress += hours * 0.5f;
 
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
         clean = Mathf.Clamp(clean, 0, maxClean);
@@ -230,13 +230,13 @@ public class StatusManager : MonoBehaviour
     private void Update()
     {
         //満腹ゲージが減っていく（空腹になる）
-        DecreaseHunger(Time.deltaTime * 1f);
+        DecreaseHunger(Time.deltaTime * 0.005f);
 
         //清潔度が減っていく（汚くなる）
-        DecreaseClean(Time.deltaTime * 0.5f);
+        DecreaseClean(Time.deltaTime * 0.002f);
 
         //不満度が増える
-        IncreaseStress(Time.deltaTime * 0.8f);
+        IncreaseStress(Time.deltaTime * 0.003f);
     }
 
     //ここから経験値の処理-------------------------------------------*/

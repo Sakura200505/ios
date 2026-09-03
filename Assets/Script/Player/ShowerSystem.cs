@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShowerSystem : MonoBehaviour
 {
     [Header("´Œ‰“x‰ñ•œ—Ê")]
-    [SerializeField] private float cleanAmount = 20f;
+    [SerializeField] private float cleanAmount = 100f;
 
     [Header("ŒoŒ±’l")]
     [SerializeField] private int expAmount = 2;
