@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpPower = 8f;
+    public float jumpPower = 5f;
 
     Rigidbody2D rb;
 
@@ -33,10 +33,17 @@ public class PlayerController : MonoBehaviour
         if (MiniGameManager.Instance.isGameOver)
             return;
 
+        // カウントダウン中・ゲーム開始前は操作できない
+        if (UIManager.Instance != null && !UIManager.Instance.IsPlaying)
+            return;
+
+        // Unity Editorと実機で入力方法を切り替える
+        // #if ～ #endif は、ビルドする環境によって使用するコードを切り替えるためのもの
+        // Unity Editorではマウスクリック、iPhoneでは画面タップでジャンプする
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
 #else
-    if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
 #endif
         {
             Debug.Log("Jump!");

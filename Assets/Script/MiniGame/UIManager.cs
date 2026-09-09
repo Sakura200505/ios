@@ -19,7 +19,11 @@ public class UIManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text bestText;
 
-    private bool gameStarted = false;
+    // ゲームが実際にプレイ中か
+    public bool IsPlaying { get; private set; }
+
+    // カウントダウンのコルーチンを管理
+    private Coroutine countdownCoroutine;
 
     void Awake()
     {
@@ -30,6 +34,8 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
+        IsPlaying = false;
+
         tapToStartPanel.SetActive(true);
         countdownText.gameObject.SetActive(false);
 
@@ -39,47 +45,91 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "Score : " + ScoreManager.Instance.score;
-        bestText.text = "Best : " + ScoreManager.Instance.bestScore;
-
-        if (!gameStarted && Input.GetMouseButtonDown(0))
+        // スコア表示
+        if (ScoreManager.Instance != null)
         {
-            StartCoroutine(StartGame());
+            scoreText.text = "Score : " + ScoreManager.Instance.score;
+            bestText.text = "Best : " + ScoreManager.Instance.bestScore;
+        }
+
+        // ゲーム開始前にタップされたらカウントダウン開始
+        if (!IsPlaying && countdownCoroutine == null &&
+            Input.GetMouseButtonDown(0))
+        {
+            countdownCoroutine = StartCoroutine(StartGame());
         }
     }
 
     IEnumerator StartGame()
     {
-        gameStarted = true;
-
         tapToStartPanel.SetActive(false);
 
         countdownText.gameObject.SetActive(true);
 
-        Time.timeScale = 1;
+        // カウントダウン中はゲームを止める
+        Time.timeScale = 0;
 
         countdownText.text = "3";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
 
         countdownText.text = "2";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
 
         countdownText.text = "1";
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
 
         countdownText.text = "GO!";
+
+        // ここでゲーム開始
+        IsPlaying = true;
+        Time.timeScale = 1;
+
         yield return new WaitForSeconds(0.8f);
 
         countdownText.gameObject.SetActive(false);
+
+        countdownCoroutine = null;
     }
 
     public void ShowGameOver()
     {
+        // カウントダウンを止める
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
+        // カウントダウンUIを消す
+        countdownText.gameObject.SetActive(false);
+        tapToStartPanel.SetActive(false);
+
+        // プレイ中ではなくする
+        IsPlaying = false;
+
+        // ゲームを止める
+        Time.timeScale = 0;
+
+        // ゲームオーバー画面を表示
         gameOverPanel.SetActive(true);
     }
 
     public void ShowClear()
     {
+        // カウントダウンを止める
+        if (countdownCoroutine != null)
+        {
+            StopCoroutine(countdownCoroutine);
+            countdownCoroutine = null;
+        }
+
+        countdownText.gameObject.SetActive(false);
+        tapToStartPanel.SetActive(false);
+
+        IsPlaying = false;
+
+        Time.timeScale = 0;
+
         clearPanel.SetActive(true);
     }
 
