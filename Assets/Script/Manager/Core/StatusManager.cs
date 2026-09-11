@@ -126,7 +126,7 @@ public class StatusManager : MonoBehaviour
         hunger -= amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
 
-        //  Debug.Log("満腹度：" + hunger);
+        //Debug.Log("満腹度：" + hunger);
     }
 
     //UI用処理

@@ -1,26 +1,45 @@
-using UnityEngine;
 using System;
-using UnityEditor.Overlays;
-using System.Data;
+using UnityEngine;
 
 [System.Serializable]
 public class SaveData
 {
-    //ステータス
+    // ステータス
     public float hunger;
     public float clean;
     public float stress;
-
-    //レベル
+ 
+    // レベル
     public int level;
     public int exp;
 
-    //散歩
+    // 散歩
     public bool IsWalking;
     public string walkEndTime;
 
-    //セーブ時間
+    // セーブ時間
     public string lastSaveTime;
+
+    // デイリーミッション
+    public float foodProgress;
+    public float showerProgress;
+    public float stressProgress;
+
+    // ミッション受け取り
+    public bool foodReceived;
+    public bool showerReceived;
+    public bool stressReceived;
+    public bool walkReceived;
+
+    // 最終報酬
+    public float rewardProgress;
+    public bool rewardReceived;
+
+    // デイリー散歩回数
+    public int walkCount;
+
+    // デイリーの日付
+    public string lastDailyDate;
 }
 
 
@@ -28,7 +47,7 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
 
-    private string key = "SAVE_DATA";
+    private const string SAVE_KEY = "SAVE_DATA";
 
     private void Awake()
     {
@@ -43,70 +62,96 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    //保存処理
+    // 保存
     public void Save()
     {
         SaveData data = new SaveData();
 
-        //ステータス
-        data.hunger = StatusManager.Instance.hunger;
-        data.clean = StatusManager.Instance.clean;
-        data.stress = StatusManager.Instance.stress;
+        // ステータス
+        if (StatusManager.Instance != null)
+        {
+            data.hunger = StatusManager.Instance.hunger;
+            data.clean = StatusManager.Instance.clean;
+            data.stress = StatusManager.Instance.stress;
 
-        data.level = StatusManager.Instance.level;
-        data.exp = StatusManager.Instance.exp;
-        
+            data.level = StatusManager.Instance.level;
+            data.exp = StatusManager.Instance.exp;
+        }
 
-        //散歩
-        data.IsWalking = WalkManager.Instance.isWalking;
-        data.walkEndTime = WalkManager.Instance.endTime.ToString();
 
+        // 散歩
+        if (WalkManager.Instance != null)
+        {
+            data.IsWalking = WalkManager.Instance.isWalking;
+            data.walkEndTime = WalkManager.Instance.endTime.ToString();
+        }
+
+
+
+        // デイリー
+        if (DailyManager.Instance != null)
+        {
+            data.foodProgress = DailyManager.Instance.foodProgress;
+            data.showerProgress = DailyManager.Instance.showerProgress;
+            data.stressProgress = DailyManager.Instance.stressProgress;
+
+            data.foodReceived = DailyManager.Instance.foodReceived;
+            data.showerReceived = DailyManager.Instance.showerReceived;
+            data.stressReceived = DailyManager.Instance.stressReceived;
+            data.walkReceived = DailyManager.Instance.walkReceived;
+
+            data.rewardProgress = DailyManager.Instance.rewardProgress;
+            data.rewardReceived = DailyManager.Instance.rewardReceived;
+
+            data.walkCount = DailyManager.Instance.walkCount;
+
+            data.lastDailyDate = DailyManager.Instance.LastDailyDate;
+        }
+
+
+
+        // セーブ時間
         data.lastSaveTime = DateTime.Now.ToString();
 
-        //Json化
+        // JSON化
         string json = JsonUtility.ToJson(data);
 
-        //保存
-        PlayerPrefs.SetString(key, json);
+
+        // 保存
+        PlayerPrefs.SetString(SAVE_KEY, json);
         PlayerPrefs.Save();
 
-       // Debug.Log("セーブ完了");
+        Debug.Log("セーブ完了");
     }
 
-    //読み込み処理
+
+    // 読み込み
     public SaveData Load()
     {
-        if (!PlayerPrefs.HasKey(key))
+        if (!PlayerPrefs.HasKey(SAVE_KEY))
         {
             Debug.Log("セーブデータなし");
             return null;
         }
 
-        //読み込み
-        string json = PlayerPrefs.GetString(key);
+        string json = PlayerPrefs.GetString(SAVE_KEY);
+
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         Debug.Log("ロード完了");
+
         return data;
     }
 
-    //データ削除（デバッグ用）
+
+    // セーブデータ削除
     public void Delete()
     {
         Debug.Log("Delete実行");
 
-        PlayerPrefs.DeleteKey(key);
+        PlayerPrefs.DeleteKey(SAVE_KEY);
         PlayerPrefs.Save();
 
-        //
-        StatusManager.Instance.hunger = 100;
-        StatusManager.Instance.clean = 100;
-        StatusManager.Instance.stress = 100;
-
-        //
-        StatusManager.Instance.level = 1;
-        StatusManager.Instance.exp = 0;
-
-        Debug.Log("セーブ削除");
+        Debug.Log("セーブデータ削除完了");
     }
 }
