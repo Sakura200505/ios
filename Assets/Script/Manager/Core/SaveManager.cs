@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SaveData
@@ -40,6 +42,9 @@ public class SaveData
 
     // デイリーの日付
     public string lastDailyDate;
+
+    //インベントリ
+    public List<string> inventoryItems = new List<string>();
 }
 
 
@@ -108,7 +113,19 @@ public class SaveManager : MonoBehaviour
             data.lastDailyDate = DailyManager.Instance.LastDailyDate;
         }
 
+        //インベントリ
+        if(Inventory.Instance != null)
+        {
+            data.inventoryItems.Clear();
 
+            foreach (StrollItemData item in Inventory.Instance.items)
+            {
+                if(item != null)
+                {
+                    data.inventoryItems.Add(item.itemName);
+                }
+            }
+        }
 
         // セーブ時間
         data.lastSaveTime = DateTime.Now.ToString();
