@@ -197,8 +197,6 @@ public class StatusManager : MonoBehaviour
         stress += amount;
         stress = Mathf.Clamp(stress, 0, maxStress);
 
-        SaveManager.Instance.Save();
-
         //Debug.Log("•s–“xF" + stress);
     }
 
