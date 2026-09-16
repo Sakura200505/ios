@@ -169,6 +169,35 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey(SAVE_KEY);
         PlayerPrefs.Save();
 
-        Debug.Log("セーブデータ削除完了");
+        //ステータスと経験値を初期化
+        if (StatusManager.Instance != null)
+        {
+            //ご飯・シャワー・触れ合いのゲージを初期値に
+            StatusManager.Instance.hunger = 50;
+            StatusManager.Instance.clean = 20;
+            StatusManager.Instance.stress = 50;
+            //経験値の値を初期値に
+            StatusManager.Instance.level = 1;
+            StatusManager.Instance.exp = 0;
+        }
+
+        //デイリー初期化
+        if(DailyManager.Instance != null)
+        {
+            DailyManager.Instance.ResetDaily();
+        }
+
+        //インベントリ初期化
+        if (Inventory.Instance != null)
+        {
+            Inventory.Instance.items.Clear();
+
+            if (ItemUIManager.Instance != null)
+            {
+                ItemUIManager.Instance.Refresh(Inventory.Instance.items);
+            }
+        }
+
+        Debug.Log("初期化完了");
     }
 }

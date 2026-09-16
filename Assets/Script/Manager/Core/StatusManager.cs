@@ -67,6 +67,12 @@ public class StatusManager : MonoBehaviour
             exp = data.exp;
 
             ApplyOfflineProgress(data);
+
+            //インベントリをロード
+            if (Inventory.Instance != null)
+            {
+                Inventory.Instance.LoadInventory(data);
+            }
         }
     }
 
