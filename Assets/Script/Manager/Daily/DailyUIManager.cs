@@ -45,6 +45,13 @@ public class DailyUIManager : MonoBehaviour
     // UI更新
     public void RefreshUI()
     {
+        //DailyManagerInstanceが存在しない場合に、処理が途中で止まるのを防ぐ
+        if (DailyManager.Instance == null)
+        {
+            Debug.LogError("DailyManager.Instance が null です！");
+            return;
+        }
+
         Debug.Log($"UI ID:{DailyManager.Instance.GetInstanceID()} food={DailyManager.Instance.foodProgress}");
 
         DailyManager daily = DailyManager.Instance;
@@ -83,10 +90,6 @@ public class DailyUIManager : MonoBehaviour
 
         // 最終報酬ボタン
         rewardButton.interactable = DailyManager.Instance.CanReceiveReward();
-
-        rewardText.text = DailyManager.Instance.rewardReceived
-            ? "受取済み"
-            : "ゲームチケットを受け取る";
     }
 
     //ご飯の報酬を受け取る処理
