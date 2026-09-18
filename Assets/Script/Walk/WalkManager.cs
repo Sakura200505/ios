@@ -39,9 +39,7 @@ public class WalkManager : MonoBehaviour
         }
     }
 
-    //==================================================
     // 散歩開始
-    //==================================================
     public void StartWalk()
     {
         Debug.Log("散歩開始");
@@ -59,7 +57,7 @@ public class WalkManager : MonoBehaviour
         }
 
         isWalking = true;
-        endTime = DateTime.Now.AddSeconds(10);   // テスト用
+        endTime = DateTime.Now.AddSeconds(30);   // テスト用
 
         Save();
 
@@ -68,16 +66,14 @@ public class WalkManager : MonoBehaviour
             NotificationManager.Instance.ScheduleNotification(
                 "散歩終了！",
                 "ペットが帰ってきたよ！",
-                10
+                30
             );
         }
 
         Debug.Log($"散歩開始 残り回数:{DailyManager.Instance.GetRemainingWalk()}");
     }
 
-    //==================================================
     // 散歩終了
-    //==================================================
     private void FinishWalk()
     {
         if (!isWalking)
@@ -95,17 +91,13 @@ public class WalkManager : MonoBehaviour
         Save();
     }
 
-    //==================================================
-    // 散歩可能？
-    //==================================================
+    // 散歩可能かどうかを確認
     public bool CanWalk()
     {
         return !isWalking && DailyManager.Instance.CanWalk();
     }
 
-    //==================================================
     // 残り時間
-    //==================================================
     public float GetRemainingTime()
     {
         if (!isWalking)
@@ -114,9 +106,7 @@ public class WalkManager : MonoBehaviour
         return Mathf.Max(0, (float)(endTime - DateTime.Now).TotalSeconds);
     }
 
-    //==================================================
     // セーブ
-    //==================================================
     public void Save()
     {
         if (SaveManager.Instance != null)
@@ -125,9 +115,7 @@ public class WalkManager : MonoBehaviour
         }
     }
 
-    //==================================================
     // ロード
-    //==================================================
     private void Load()
     {
         if (SaveManager.Instance == null)

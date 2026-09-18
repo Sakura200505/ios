@@ -11,10 +11,13 @@ public class WalkMenuUI : MonoBehaviour
     {
         walkMenuPanel.SetActive(true);
 
-        // ‚Æ‚è‚ ‚¦‚¸ŒÅ’è•\¦
-        remainingText.text = "‚ ‚Æ2‰ñ";
+        // c‚è‚ÌU•à‰ñ”‚ğ•\¦
+        int remainingWalk = DailyManager.Instance.GetRemainingWalk();
 
-        timeText.text = "U•àŠÔF–ñ30•ª";
+        remainingText.text = $"‚ ‚Æ{remainingWalk}‰ñ";
+
+        // U•àŠÔ‚ğ•\¦
+        timeText.text = "U•àŠÔF–ñ30•b";
     }
 
     public void CloseMenu()
@@ -24,7 +27,15 @@ public class WalkMenuUI : MonoBehaviour
 
     public void StartWalk()
     {
+        // U•à‚Å‚«‚é‚©Šm”F
+        if (!WalkManager.Instance.CanWalk())
+        {
+            Debug.Log("Œ»İU•à‚Å‚«‚È‚¢‚æI");
+            return;
+        }
+
         WalkManager.Instance.StartWalk();
+
         CloseMenu();
     }
 }
