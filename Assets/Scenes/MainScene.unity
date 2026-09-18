@@ -7365,7 +7365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowerSystem
   cleanAmount: 20
-  expAmount: 100
+  expAmount: 4
   showerEffect: {fileID: 1754404804}
   audioSource: {fileID: 426163991}
   showerSound: {fileID: 8300000, guid: 34ee6f2d7536a1e418c771d76633e0a7, type: 3}
@@ -25074,8 +25074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67dd3cedc8894274bbfcd29ee818a178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  interval: 10
-  m_imgGauge: {fileID: 234413241}
 --- !u!1 &1696033512
 GameObject:
   m_ObjectHideFlags: 0

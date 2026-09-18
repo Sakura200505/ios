@@ -17,21 +17,29 @@ public class StatusButtonManager : MonoBehaviour
     {
         if (StatusManager.Instance == null) return;
 
-        // ボタンの有効・無効
-        bool canFood = StatusManager.Instance.hunger < StatusManager.Instance.maxHunger - 1f;
+        float hunger = StatusManager.Instance.hunger;
+        float clean = StatusManager.Instance.clean;
+        float stress = StatusManager.Instance.stress;
 
-        bool canShower = StatusManager.Instance.clean < StatusManager.Instance.maxClean - 1f;
+        float maxHunger = StatusManager.Instance.maxHunger;
+        float maxClean = StatusManager.Instance.maxClean;
 
-        bool canStress = StatusManager.Instance.stress > 1f;
+        // ボタンを押せる条件
+        bool canFood = hunger < maxHunger - 1f;
+        bool canShower = clean < maxClean;
+        bool canStress = stress > 1f;
+
+        // Imageの表示条件
+        bool showFoodImage = !canFood;
+        bool showShowerImage = clean >= maxClean - 1f;
+        bool showStressImage = !canStress;
 
         foodButton.interactable = canFood;
         showerButton.interactable = canShower;
         stressButton.interactable = canStress;
 
-        // 押せない時だけImageを表示
-        foodImage.enabled = !canFood;
-        showerImage.enabled = !canShower;
-        stressImage.enabled = !canStress;
-
+        foodImage.enabled = showFoodImage;
+        showerImage.enabled = showShowerImage;
+        stressImage.enabled = showStressImage;
     }
 }

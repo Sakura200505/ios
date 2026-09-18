@@ -23,6 +23,11 @@ public class StatusManager : MonoBehaviour
     public int exp;
     public int maxExp = 100;
 
+    [Header("時間経過による変化量（1時間）")]
+    private const float HungerDecreasePerHour = 5f;
+    private const float CleanDecreasePerHour = 4f;
+    private const float StressIncreasePerHour = 3f;
+
     [Header("レベルアップ演出")]
     [SerializeField] private ParticleSystem petEffect;
     [SerializeField] private AudioSource audioSource;
@@ -89,10 +94,12 @@ public class StatusManager : MonoBehaviour
 
         float hours = (float)span.TotalHours;
 
-        hunger -= hours * 0.3f;
-        clean -= hours * 0.2f;
-        stress += hours * 0.3f;
+        //経過時間に応じてステータスを変化させる
+        hunger -= hours * HungerDecreasePerHour;
+        clean -= hours * CleanDecreasePerHour;
+        stress += hours * StressIncreasePerHour;
 
+        //ステータスの範囲を制限
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
         clean = Mathf.Clamp(clean, 0, maxClean);
         stress = Mathf.Clamp(stress, 0, maxStress);
@@ -131,8 +138,6 @@ public class StatusManager : MonoBehaviour
     {
         hunger -= amount;
         hunger = Mathf.Clamp(hunger, 0, maxHunger);
-
-        //Debug.Log("満腹度：" + hunger);
     }
 
     //UI用処理
@@ -233,14 +238,13 @@ public class StatusManager : MonoBehaviour
 
     private void Update()
     {
-        //満腹ゲージが減っていく（空腹になる）
-        DecreaseHunger(Time.deltaTime * 0.003f);
+        float hoursPerSecond = 1f / 3600f;
 
-        //清潔度が減っていく（汚くなる）
-        DecreaseClean(Time.deltaTime * 0.002f);
+        DecreaseHunger(HungerDecreasePerHour * hoursPerSecond * Time.deltaTime);
 
-        //不満度が増える
-        IncreaseStress(Time.deltaTime * 0.003f);
+        DecreaseClean(CleanDecreasePerHour * hoursPerSecond * Time.deltaTime);
+
+        IncreaseStress(StressIncreasePerHour * hoursPerSecond * Time.deltaTime);
     }
 
     //ここから経験値の処理-------------------------------------------*/
@@ -249,8 +253,10 @@ public class StatusManager : MonoBehaviour
     public void AddExp(int amount)
     {
         exp += amount;
+
         Debug.Log("経験値：" + exp);
 
+        // 経験値が100以上になったらレベルアップ
         if (exp >= maxExp)
         {
             LevelUp();

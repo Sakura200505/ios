@@ -25,10 +25,18 @@ public class ShowerSystem : MonoBehaviour
         }
 
         // 清潔度を回復
-        StatusManager.Instance.IncreaseClean(cleanAmount);
+        bool success = StatusManager.Instance.IncreaseClean(cleanAmount);
 
-        // 経験値を追加
-        StatusManager.Instance.AddExp(expAmount);
+        if (!success)
+        {
+            return;
+        }
+
+        //清潔度が99以上なら経験値を追加しない
+        if (StatusManager.Instance.clean < 99f)
+        {
+            StatusManager.Instance.AddExp(expAmount);
+        }
 
         // エフェクト再生
         showerEffect.Play();

@@ -1,60 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
     public DateTime currentTime;
-    //10秒ごと
-    public float interval = 10f;
-    public Image m_imgGauge;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         currentTime = DateTime.Now;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        TimeSpan diff = DateTime.Now - currentTime;
-
-        if (diff.TotalSeconds >= interval)
-        {
-            currentTime = DateTime.Now;
-
-            //ここでステータス減少
-            StatusManager.Instance.DecreaseHunger(5);
-        }
-
-        float param = Mathf.Lerp(1.0f, 0.0f, (float)diff.TotalSeconds / 10f);
-        m_imgGauge.fillAmount = param;
-    }
-
-    //保存処理
+    // アプリを一時停止したとき
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            WalkManager.Instance.Save();
+            SaveGame();
         }
     }
 
+    // アプリを終了したとき
     private void OnApplicationQuit()
     {
-        WalkManager.Instance.Save();
+        SaveGame();
     }
 
-    //通知をリセット
+    // アプリに戻ってきたとき
     private void OnApplicationFocus(bool focus)
     {
         if (focus)
         {
-            NotificationManager.Instance.ClearAll();
+            if (NotificationManager.Instance != null)
+            {
+                NotificationManager.Instance.ClearAll();
+            }
         }
     }
 
+    // ゲームの保存処理
+    private void SaveGame()
+    {
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.Save();
+        }
+
+        if (WalkManager.Instance != null)
+        {
+            WalkManager.Instance.Save();
+        }
+    }
 }
