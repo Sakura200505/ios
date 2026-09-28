@@ -49,6 +49,9 @@ public class SaveData
 
 public class SaveManager : MonoBehaviour
 {
+    [Header("削除確認パネル")]
+    [SerializeField] private GameObject deleteConfirmPanel;
+
     public static SaveManager Instance;
 
     private const string SAVE_KEY = "SAVE_DATA";
@@ -157,6 +160,18 @@ public class SaveManager : MonoBehaviour
         Debug.Log("ロード完了");
 
         return data;
+    }
+
+    //確認パネルを表示
+    public void OpenDeleteConfirm() 
+    { 
+        deleteConfirmPanel.SetActive(true);
+    }
+
+    //確認パネルを閉じる
+    public void CloseDeleteConfiem()
+    {
+        deleteConfirmPanel.SetActive(false);
     }
 
 
