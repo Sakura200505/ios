@@ -14,10 +14,10 @@ public class WalkMenuUI : MonoBehaviour
         // c‚è‚ÌU•à‰ñ”‚ğ•\¦
         int remainingWalk = DailyManager.Instance.GetRemainingWalk();
 
-        remainingText.text = $"‚ ‚Æ{remainingWalk}‰ñ";
+        remainingText.text = $"{remainingWalk}";
 
         // U•àŠÔ‚ğ•\¦
-        timeText.text = "U•àŠÔF–ñ30•b";
+       // timeText.text = "U•àŠÔF–ñ30•b";
     }
 
     public void CloseMenu()
