@@ -61,15 +61,6 @@ public class WalkManager : MonoBehaviour
 
         Save();
 
-        if (NotificationManager.Instance != null)
-        {
-            NotificationManager.Instance.ScheduleNotification(
-                "散歩終了！",
-                "ペットが帰ってきたよ！",
-                30
-            );
-        }
-
         Debug.Log($"散歩開始 残り回数:{DailyManager.Instance.GetRemainingWalk()}");
     }
 
@@ -140,15 +131,6 @@ public class WalkManager : MonoBehaviour
         else
         {
             int remain = Mathf.CeilToInt((float)(endTime - DateTime.Now).TotalSeconds);
-
-            if (NotificationManager.Instance != null)
-            {
-                NotificationManager.Instance.ScheduleNotification(
-                    "散歩終了！",
-                    "ペットが帰ってきたよ！",
-                    remain
-                );
-            }
         }
     }
 }

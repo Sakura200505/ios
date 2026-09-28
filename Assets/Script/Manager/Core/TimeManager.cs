@@ -25,18 +25,6 @@ public class TimeManager : MonoBehaviour
         SaveGame();
     }
 
-    // ƒAƒvƒŠ‚É–ß‚Á‚Ä‚«‚½‚Æ‚«
-    private void OnApplicationFocus(bool focus)
-    {
-        if (focus)
-        {
-            if (NotificationManager.Instance != null)
-            {
-                NotificationManager.Instance.ClearAll();
-            }
-        }
-    }
-
     // ƒQ[ƒ€‚Ì•Û‘¶ˆ—
     private void SaveGame()
     {

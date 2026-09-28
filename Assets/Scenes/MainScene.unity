@@ -22473,7 +22473,6 @@ Transform:
   - {fileID: 1497900822}
   - {fileID: 2096249863}
   - {fileID: 1396561397}
-  - {fileID: 1953160435}
   - {fileID: 1694184968}
   - {fileID: 737508980}
   - {fileID: 1214528794}
@@ -31486,50 +31485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MiniGameUIManager
   miniGamePanel: {fileID: 11795204}
   ticketText: {fileID: 1053235164}
---- !u!1 &1953160434
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1953160435}
-  - component: {fileID: 1953160436}
-  m_Layer: 0
-  m_Name: NotificationManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1953160435
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953160434}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1229095561}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1953160436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953160434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f85af61f17ad52429c0e9b3ee62d213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NotificationManager
 --- !u!1 &1983615660
 GameObject:
   m_ObjectHideFlags: 0
