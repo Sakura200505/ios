@@ -37,13 +37,13 @@ public class PlayerController : MonoBehaviour
         if (UIManager.Instance != null && !UIManager.Instance.IsPlaying)
             return;
 
-        // Unity Editorと実機で入力方法を切り替える
-        // #if ～ #endif は、ビルドする環境によって使用するコードを切り替えるためのもの
-        // Unity Editorではマウスクリック、iPhoneでは画面タップでジャンプする
-#if UNITY_EDITOR
+        // Unity EditorとWindows版ではマウス操作
+        // iPhoneではタッチ操作
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0))
 #else
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+    if (Input.touchCount > 0 &&
+        Input.GetTouch(0).phase == TouchPhase.Began)
 #endif
         {
             Debug.Log("Jump!");
