@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Jump!");
 
+            //ƒWƒƒƒ“ƒv‰¹Ä¶
+            MiniGameAudioManager.Instance.PlayJumpSE();
+
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         }
@@ -58,6 +61,9 @@ public class PlayerController : MonoBehaviour
         if (collision.rigidbody != null &&
             collision.rigidbody.CompareTag("Obstacle"))
         {
+            //áŠQ•¨‚É“–‚½‚Á‚½‚ÌŒø‰Ê‰¹Ä¶
+            MiniGameAudioManager.Instance.PlayHitSE();
+
             MiniGameManager.Instance.GameOver();
         }
     }

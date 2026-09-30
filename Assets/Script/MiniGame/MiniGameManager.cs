@@ -32,6 +32,12 @@ public class MiniGameManager : MonoBehaviour
 
         isGameOver = true;
 
+        //BGMを停止させる
+        MiniGameAudioManager.Instance.StopBGM();
+
+        //ゲームオーバー音を再生
+        MiniGameAudioManager.Instance.PlayGameOverSE();
+
         ScoreManager.Instance.SaveBest();
         UIManager.Instance.ShowGameOver();
     }
@@ -41,6 +47,12 @@ public class MiniGameManager : MonoBehaviour
         if (isGameOver) return;
 
         isGameOver = true;
+
+        //BGMを停止させる
+        MiniGameAudioManager.Instance.StopBGM();
+
+        //ゲームクリア音を再生
+        MiniGameAudioManager.Instance.PlayGameClearSE();
 
         ScoreManager.Instance.SaveBest();
         UIManager.Instance.ShowClear();
