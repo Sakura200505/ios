@@ -151,17 +151,18 @@ public class DailyManager : MonoBehaviour
             Debug.Log("日付が変わったのでデイリーをリセット");
 
 
-            // ④ デイリーリセット
+            // デイリーだけリセットする
             ResetDaily();
 
             // 今日の日付を保存
             lastDate = today;
 
-            // リセット後の状態を保存
-            if (SaveManager.Instance != null)
-            {
-                SaveManager.Instance.Save();
-            }
+            //この処理を書くと経験値もリセットされている可能性あり
+            //// リセット後の状態を保存
+            //if (SaveManager.Instance != null)
+            //{
+            //    SaveManager.Instance.Save();
+            //}
         }
         else
         {

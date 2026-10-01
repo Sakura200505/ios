@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 12.865295, y: -703}
+  m_AnchoredPosition: {x: 12.8654785, y: -703}
   m_SizeDelta: {x: 557.3262, y: -1384.9734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11795206
@@ -1261,6 +1261,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1396561398}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: OpenDeleteConfirm
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 150941921}
+        m_TargetAssemblyTypeName: ButtonSEManager, Assembly-CSharp
+        m_MethodName: PlayButtonSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14791,7 +14803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 14.474976, y: -5.199951}
+  m_AnchoredPosition: {x: 14.475098, y: -5.199951}
   m_SizeDelta: {x: 371.1, y: 587.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901171534
@@ -21320,6 +21332,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1396561398}
         m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
         m_MethodName: CloseDeleteConfiem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 150941921}
+        m_TargetAssemblyTypeName: ButtonSEManager, Assembly-CSharp
+        m_MethodName: PlayBackSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
