@@ -119,8 +119,7 @@ public class Inventory : MonoBehaviour
     }
 
     // ƒAƒCƒeƒ€ŒŸõ
-    private StrollItemData FindItemByName(
-        string itemName)
+    private StrollItemData FindItemByName(string itemName)
     {
         if (ItemManager.Instance == null)
             return null;
