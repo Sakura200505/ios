@@ -44,6 +44,9 @@ public class SaveData
 
     //インベントリ
     public List<string> inventoryItems = new List<string>();
+
+    // 着せ替えアイテムの所持ID
+    public List<string> ownedDressUpItemIds = new List<string>();
 }
 
 
@@ -127,6 +130,13 @@ public class SaveManager : MonoBehaviour
                     data.inventoryItems.Add(item.itemName);
                 }
             }
+        }
+
+        // 着せ替えアイテム
+        if (DressUpManager.Instance != null)
+        {
+            data.ownedDressUpItemIds =
+                new List<string>(DressUpManager.Instance.ownedItemIds);
         }
 
         // セーブ時間
